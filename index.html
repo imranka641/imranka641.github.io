@@ -1,901 +1,3227 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Imran Kedir - Full-Stack Web Developer</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>Imran Kedir | Full-Stack Web & Android Developer</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.2/css/all.min.css">
+    
     <style>
-        /* Reset & Base Styles */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        /* CSS Variables & Theming System */
+        :root {
+            --font-main: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            --font-display: 'Space Grotesk', sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+
+            /* Light Palette */
+            --bg-body: #f8fafc;
+            --bg-surface: #ffffff;
+            --bg-surface-elevated: #ffffff;
+            --bg-subtle: #f1f5f9;
+            --bg-card: #ffffff;
+            --bg-card-hover: #f8fafc;
+
+            --text-primary: #0f172a;
+            --text-secondary: #334155;
+            --text-muted: #64748b;
+
+            --border-color: #e2e8f0;
+            --border-hover: #cbd5e1;
+            --border-focus: #2563eb;
+
+            --primary: #0f172a;
+            --secondary: #2563eb;
+            --secondary-hover: #1d4ed8;
+            --accent: #0d9488;
+            --accent-hover: #0f766e;
+            --indigo: #6366f1;
+
+            --hero-gradient: radial-gradient(circle at 85% 15%, rgba(37, 99, 235, 0.09) 0%, transparent 50%), radial-gradient(circle at 15% 85%, rgba(13, 148, 136, 0.08) 0%, transparent 45%);
+
+            --header-bg: rgba(255, 255, 255, 0.88);
+            --header-border: rgba(226, 232, 240, 0.8);
+
+            --input-bg: #ffffff;
+            --input-border: #cbd5e1;
+
+            --error-color: #ef4444;
+            --error-bg: #fef2f2;
+            --success-color: #10b981;
+            --success-bg: #ecfdf5;
+
+            --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.04);
+            --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.04);
+            --shadow-md: 0 6px 12px -2px rgba(0, 0, 0, 0.06), 0 3px 6px -3px rgba(0, 0, 0, 0.04);
+            --shadow-lg: 0 12px 24px -4px rgba(0, 0, 0, 0.08), 0 4px 8px -4px rgba(0, 0, 0, 0.04);
+            --shadow-xl: 0 20px 30px -6px rgba(0, 0, 0, 0.1);
+
+            --radius-sm: 6px;
+            --radius-md: 10px;
+            --radius-lg: 14px;
+            --radius-xl: 20px;
+            --radius-full: 9999px;
+
+            --transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        :root {
-            --primary: #2c3e50;
-            --secondary: #3498db;
-            --accent: #1abc9c;
-            --light: #f8f9fa;
-            --dark: #2c3e50;
-            --gray: #6c757d;
-            --light-gray: #e9ecef;
+        [data-theme="dark"] {
+            --bg-body: #090d16;
+            --bg-surface: #0f172a;
+            --bg-surface-elevated: #1e293b;
+            --bg-subtle: #151f32;
+            --bg-card: #111a2e;
+            --bg-card-hover: #16223b;
+
+            --text-primary: #f8fafc;
+            --text-secondary: #cbd5e1;
+            --text-muted: #94a3b8;
+
+            --border-color: #1e293b;
+            --border-hover: #334155;
+            --border-focus: #60a5fa;
+
+            --primary: #f8fafc;
+            --secondary: #3b82f6;
+            --secondary-hover: #60a5fa;
+            --accent: #14b8a6;
+            --accent-hover: #2dd4bf;
+            --indigo: #818cf8;
+
+            --hero-gradient: radial-gradient(circle at 85% 15%, rgba(59, 130, 246, 0.16) 0%, transparent 50%), radial-gradient(circle at 15% 85%, rgba(20, 184, 166, 0.12) 0%, transparent 45%);
+
+            --header-bg: rgba(9, 13, 22, 0.88);
+            --header-border: rgba(30, 41, 59, 0.8);
+
+            --input-bg: #141e33;
+            --input-border: #334155;
+
+            --error-color: #f87171;
+            --error-bg: rgba(239, 68, 68, 0.12);
+            --success-color: #34d399;
+            --success-bg: rgba(16, 185, 129, 0.12);
+
+            --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.3);
+            --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.4);
+            --shadow-md: 0 6px 12px -2px rgba(0, 0, 0, 0.4);
+            --shadow-lg: 0 12px 24px -4px rgba(0, 0, 0, 0.5);
+            --shadow-xl: 0 20px 30px -6px rgba(0, 0, 0, 0.6);
+        }
+
+        /* Base Reset */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body, input, textarea, select, button {
+            font-family: var(--font-main);
+        }
+
+        /* Ensure icon visibility and prevent font-family clashes */
+        i.fa, i.fas, i.fab, i.far, i.fa-solid, i.fa-brands, i.fa-regular,
+        .fa, .fas, .fab, .far, .fa-solid, .fa-brands, .fa-regular {
+            display: inline-block;
+            font-style: normal;
+            font-variant: normal;
+            text-rendering: auto;
+            line-height: 1;
         }
 
         html {
             scroll-behavior: smooth;
+            overflow-y: auto;
+            overflow-x: hidden;
         }
 
         body {
-            line-height: 1.6;
-            color: #333;
-            background-color: #fff;
+            background-color: var(--bg-body);
+            color: var(--text-secondary);
+            line-height: 1.65;
+            transition: background-color 0.25s ease, color 0.25s ease;
+            overflow-x: hidden;
+            overflow-y: auto;
+        }
+
+        /* Modern Sleek Scrollbars */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg-surface);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--border-hover);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--secondary);
+        }
+
+        * {
+            scrollbar-width: thin;
+            scrollbar-color: var(--border-hover) var(--bg-surface);
+        }
+
+        ::selection {
+            background-color: var(--secondary);
+            color: #ffffff;
         }
 
         .container {
             width: 100%;
-            max-width: 1200px;
+            max-width: 1220px;
             margin: 0 auto;
-            padding: 0 20px;
+            padding: 0 24px;
         }
 
         section {
-            padding: 80px 0;
-        }
-
-        .section-title {
-            text-align: center;
-            margin-bottom: 50px;
+            padding: 96px 0;
             position: relative;
         }
 
-        .section-title h2 {
-            font-size: 2.5rem;
-            color: var(--primary);
-            margin-bottom: 15px;
+        /* Typography & Section Titles */
+        h1, h2, h3, h4, h5, h6 {
+            color: var(--text-primary);
+            font-family: var(--font-display);
+            font-weight: 700;
+            line-height: 1.25;
         }
 
-        .section-title p {
-            color: var(--gray);
-            max-width: 600px;
-            margin: 0 auto;
+        .section-header {
+            text-align: center;
+            max-width: 720px;
+            margin: 0 auto 56px;
         }
 
-        .section-title::after {
-            content: '';
-            position: absolute;
-            width: 70px;
-            height: 4px;
-            background-color: var(--accent);
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
+        .section-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: var(--bg-subtle);
+            color: var(--secondary);
+            border: 1px solid var(--border-color);
+            padding: 4px 14px;
+            border-radius: var(--radius-full);
+            font-size: 0.82rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 12px;
         }
 
+        .section-title {
+            font-size: 2.4rem;
+            letter-spacing: -0.02em;
+            margin-bottom: 14px;
+        }
+
+        .section-subtitle {
+            color: var(--text-muted);
+            font-size: 1.05rem;
+            line-height: 1.6;
+        }
+
+        /* Buttons */
         .btn {
-            display: inline-block;
-            padding: 12px 28px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 11px 22px;
             background-color: var(--secondary);
-            color: white;
-            border: none;
-            border-radius: 4px;
-            font-size: 1rem;
+            color: #ffffff !important;
+            border: 1px solid transparent;
+            border-radius: var(--radius-md);
+            font-size: 0.92rem;
             font-weight: 600;
             cursor: pointer;
-            transition: all 0.3s ease;
             text-decoration: none;
+            transition: var(--transition);
+            white-space: nowrap;
         }
 
         .btn:hover {
-            background-color: #2980b9;
+            background-color: var(--secondary-hover);
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn:active {
+            transform: translateY(0);
         }
 
         .btn-accent {
             background-color: var(--accent);
         }
-
         .btn-accent:hover {
-            background-color: #16a085;
+            background-color: var(--accent-hover);
         }
 
-        /* Header & Navigation */
+        .btn-outline {
+            background-color: transparent;
+            color: var(--text-primary) !important;
+            border: 1px solid var(--border-color);
+        }
+        .btn-outline:hover {
+            background-color: var(--bg-subtle);
+            border-color: var(--border-hover);
+        }
+
+        .btn-sm {
+            padding: 7px 14px;
+            font-size: 0.82rem;
+        }
+
+        /* Header Navigation */
         header {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             z-index: 1000;
-            background-color: rgba(255, 255, 255, 0.95);
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
+            background-color: var(--header-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--header-border);
+            transition: var(--transition);
         }
 
-        .header-container {
+        .nav-container {
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            padding: 20px;
+            justify-content: space-between;
+            padding: 16px 24px;
         }
 
-        .logo {
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: var(--primary);
+        .brand-logo {
             text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
-        .logo span {
+        .logo-avatar {
+            width: 38px;
+            height: 38px;
+            background: linear-gradient(135deg, var(--secondary), var(--accent));
+            color: #ffffff;
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 1.1rem;
+            font-family: var(--font-display);
+        }
+
+        .logo-text {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            letter-spacing: -0.02em;
+        }
+
+        .logo-text span {
             color: var(--accent);
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 18px;
         }
 
         nav ul {
             display: flex;
             list-style: none;
-        }
-
-        nav ul li {
-            margin-left: 30px;
+            align-items: center;
+            gap: 24px;
         }
 
         nav ul li a {
             text-decoration: none;
-            color: var(--dark);
+            color: var(--text-secondary);
             font-weight: 600;
-            transition: color 0.3s ease;
+            font-size: 0.92rem;
+            padding: 6px 0;
+            position: relative;
+            transition: color 0.2s ease;
         }
 
-        nav ul li a:hover {
+        nav ul li a:hover,
+        nav ul li a.active {
             color: var(--secondary);
         }
 
-        .mobile-menu-btn {
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--secondary);
+            transition: width 0.25s ease;
+            border-radius: 2px;
+        }
+
+        nav ul li a:hover::after,
+        nav ul li a.active::after {
+            width: 100%;
+        }
+
+        .theme-toggle-btn {
+            background: var(--bg-subtle);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            width: 40px;
+            height: 40px;
+            border-radius: var(--radius-full);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1.05rem;
+            transition: var(--transition);
+        }
+
+        .theme-toggle-btn:hover {
+            background: var(--border-hover);
+            transform: scale(1.05);
+            color: var(--secondary);
+        }
+
+        .mobile-toggle {
             display: none;
-            background: none;
-            border: none;
-            font-size: 1.5rem;
-            color: var(--primary);
+            background: var(--bg-subtle);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            width: 40px;
+            height: 40px;
+            border-radius: var(--radius-md);
+            font-size: 1.1rem;
             cursor: pointer;
         }
 
         /* Hero Section */
         .hero {
             padding-top: 150px;
-            padding-bottom: 100px;
-            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-            text-align: center;
+            padding-bottom: 90px;
+            background-image: var(--hero-gradient);
         }
 
-        .hero-content h1 {
-            font-size: 3.5rem;
-            color: var(--primary);
-            margin-bottom: 10px;
-        }
-
-        .hero-content h2 {
-            font-size: 2rem;
-            color: var(--secondary);
-            margin-bottom: 20px;
-            font-weight: 400;
-        }
-
-        .hero-content p {
-            font-size: 1.2rem;
-            color: var(--gray);
-            max-width: 700px;
-            margin: 0 auto 30px;
-        }
-
-        .hero-btns {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin-top: 30px;
-        }
-
-        /* About Section */
-        .about-content {
+        .hero-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 50px;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 48px;
             align-items: center;
         }
 
-        .about-text h3 {
-            font-size: 1.8rem;
-            color: var(--primary);
-            margin-bottom: 20px;
-        }
-
-        .about-text p {
-            margin-bottom: 20px;
-            color: var(--gray);
-        }
-
-        .experience-highlights {
-            margin-top: 30px;
-        }
-
-        .highlight {
-            display: flex;
-            align-items: flex-start;
-            margin-bottom: 20px;
-        }
-
-        .highlight i {
+        .hero-status-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 16px;
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-full);
             color: var(--accent);
-            margin-right: 15px;
-            margin-top: 5px;
-        }
-
-        /* Skills Section */
-        .skills-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-        }
-
-        .skill-category {
-            background-color: var(--light);
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            transition: transform 0.3s ease;
-        }
-
-        .skill-category:hover {
-            transform: translateY(-5px);
-        }
-
-        .skill-category h3 {
-            font-size: 1.5rem;
-            color: var(--primary);
+            font-size: 0.84rem;
+            font-weight: 700;
+            box-shadow: var(--shadow-xs);
             margin-bottom: 20px;
-            display: flex;
-            align-items: center;
         }
 
-        .skill-category h3 i {
-            margin-right: 10px;
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            background-color: var(--accent);
+            border-radius: 50%;
+            box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.25);
+            animation: pulse-dot 2s infinite;
+        }
+
+        @keyframes pulse-dot {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.25); opacity: 0.7; }
+        }
+
+        .hero h1 {
+            font-size: 3.4rem;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            margin-bottom: 12px;
+        }
+
+        .hero-positioning {
+            font-size: 1.28rem;
+            font-weight: 600;
             color: var(--secondary);
+            margin-bottom: 18px;
+            line-height: 1.4;
         }
 
-        .skill-list {
+        .hero-lead {
+            font-size: 1.08rem;
+            color: var(--text-muted);
+            line-height: 1.7;
+            margin-bottom: 28px;
+            max-width: 600px;
+        }
+
+        .hero-pills-row {
             display: flex;
             flex-wrap: wrap;
             gap: 10px;
+            margin-bottom: 32px;
         }
 
-        .skill-item {
-            background-color: white;
-            padding: 8px 15px;
-            border-radius: 30px;
-            font-size: 0.9rem;
+        .hero-tech-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            padding: 5px 12px;
+            border-radius: var(--radius-full);
+            font-size: 0.82rem;
             font-weight: 600;
-            color: var(--primary);
-            border: 1px solid var(--light-gray);
+            color: var(--text-secondary);
         }
 
-        /* Projects Section */
-        .projects-container {
+        .hero-tech-pill i {
+            color: var(--secondary);
+        }
+
+        .hero-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+        }
+
+        /* Hero Code / Terminal Card */
+        .terminal-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-xl);
+            overflow: hidden;
+        }
+
+        .terminal-header {
+            background: var(--bg-subtle);
+            padding: 12px 18px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .terminal-dots {
+            display: flex;
+            gap: 6px;
+        }
+
+        .terminal-dots span {
+            width: 11px;
+            height: 11px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+
+        .dot-red { background-color: #ef4444; }
+        .dot-yellow { background-color: #f59e0b; }
+        .dot-green { background-color: #10b981; }
+
+        .terminal-title {
+            font-size: 0.8rem;
+            font-family: var(--font-mono);
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        .terminal-body {
+            padding: 22px;
+            font-family: var(--font-mono);
+            font-size: 0.88rem;
+            line-height: 1.7;
+        }
+
+        .code-line {
+            display: flex;
+            margin-bottom: 6px;
+        }
+
+        .code-key { color: var(--secondary); }
+        .code-val { color: var(--accent); }
+        .code-str { color: #d97706; }
+        .code-bool { color: #8b5cf6; }
+
+        .terminal-metrics {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            padding: 16px 20px;
+            background: var(--bg-subtle);
+            border-top: 1px solid var(--border-color);
+            text-align: center;
+        }
+
+        .t-metric-num {
+            font-family: var(--font-display);
+            font-size: 1.3rem;
+            font-weight: 800;
+            color: var(--text-primary);
+        }
+
+        .t-metric-lbl {
+            font-size: 0.72rem;
+            color: var(--text-muted);
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        /* About Section */
+        #about {
+            background-color: var(--bg-surface);
+            border-top: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 48px;
+            align-items: center;
+        }
+
+        .about-text p {
+            margin-bottom: 18px;
+            font-size: 1.02rem;
+            line-height: 1.7;
+        }
+
+        .about-highlights-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-top: 28px;
+        }
+
+        .about-hl-card {
+            background: var(--bg-subtle);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 18px;
+            display: flex;
+            gap: 14px;
+            align-items: flex-start;
+            transition: var(--transition);
+        }
+
+        .about-hl-card:hover {
+            border-color: var(--secondary);
+            transform: translateY(-2px);
+        }
+
+        .about-hl-card i {
+            font-size: 1.35rem;
+            color: var(--secondary);
+            margin-top: 2px;
+        }
+
+        .about-hl-card h4 {
+            font-size: 0.95rem;
+            margin-bottom: 4px;
+        }
+
+        .about-hl-card p {
+            font-size: 0.84rem;
+            color: var(--text-muted);
+            margin-bottom: 0;
+            line-height: 1.45;
+        }
+
+        .profile-side-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-xl);
+            padding: 32px;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .profile-side-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 18px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .profile-side-card h3 i {
+            color: var(--accent);
+        }
+
+        .profile-checklist {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .profile-checklist li {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            font-size: 0.92rem;
+            color: var(--text-secondary);
+        }
+
+        .profile-checklist li i {
+            color: var(--success-color);
+            margin-top: 4px;
+            flex-shrink: 0;
+        }
+
+        /* Skills Section */
+        #skills {
+            background-color: var(--bg-body);
+        }
+
+        .skills-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 28px;
+        }
+
+        .skill-group-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 28px;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .skill-group-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--border-hover);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .skill-group-head {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 20px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .skill-icon-box {
+            width: 44px;
+            height: 44px;
+            border-radius: var(--radius-md);
+            background: var(--bg-subtle);
+            color: var(--secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            border: 1px solid var(--border-color);
+        }
+
+        .skill-group-head h3 {
+            font-size: 1.18rem;
+            margin-bottom: 2px;
+        }
+
+        .skill-group-head span {
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .skill-tags-cloud {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .skill-tag {
+            background: var(--bg-subtle);
+            border: 1px solid var(--border-color);
+            padding: 6px 13px;
+            border-radius: var(--radius-full);
+            font-size: 0.84rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            transition: var(--transition);
+        }
+
+        .skill-tag:hover {
+            background: var(--secondary);
+            color: #ffffff;
+            border-color: var(--secondary);
+            transform: translateY(-2px);
+        }
+
+        .skill-tag.featured {
+            border-color: rgba(37, 99, 235, 0.3);
+            background: rgba(37, 99, 235, 0.06);
+            color: var(--secondary);
+        }
+
+        /* Projects Section & Filter Tabs */
+        #projects {
+            background-color: var(--bg-surface);
+            border-top: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .project-filters {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 40px;
+        }
+
+        .filter-btn {
+            background: var(--bg-subtle);
+            border: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            padding: 8px 18px;
+            border-radius: var(--radius-full);
+            font-size: 0.88rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .filter-btn:hover {
+            background: var(--border-color);
+            color: var(--text-primary);
+        }
+
+        .filter-btn.active {
+            background: var(--secondary);
+            color: #ffffff;
+            border-color: var(--secondary);
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
             gap: 30px;
         }
 
         .project-card {
-            background-color: white;
-            border-radius: 8px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
             overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            transition: transform 0.3s ease;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
         }
 
         .project-card:hover {
-            transform: translateY(-10px);
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-xl);
+            border-color: var(--border-hover);
         }
 
-        .project-img {
-            height: 200px;
-            background-color: var(--light-gray);
+        .project-header-bar {
+            padding: 22px 24px 16px;
+            background: linear-gradient(to bottom, var(--bg-subtle), var(--bg-card));
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 16px;
+        }
+
+        .project-icon-circle {
+            width: 48px;
+            height: 48px;
+            border-radius: var(--radius-md);
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
             display: flex;
             align-items: center;
             justify-content: center;
-            color: var(--gray);
-            font-weight: 600;
+            font-size: 1.35rem;
+            color: var(--secondary);
+            flex-shrink: 0;
         }
 
-        .project-content {
-            padding: 25px;
+        .project-category-badge {
+            font-size: 0.74rem;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: var(--radius-full);
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
         }
 
-        .project-content h3 {
-            font-size: 1.5rem;
-            color: var(--primary);
+        .project-body {
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .project-body h3 {
+            font-size: 1.35rem;
             margin-bottom: 10px;
         }
 
-        .project-content p {
-            color: var(--gray);
-            margin-bottom: 20px;
+        .project-desc {
+            color: var(--text-muted);
+            font-size: 0.93rem;
+            line-height: 1.6;
+            margin-bottom: 18px;
         }
 
-        .project-tech {
+        .project-features-list {
+            list-style: none;
             display: flex;
-            flex-wrap: wrap;
+            flex-direction: column;
             gap: 8px;
             margin-bottom: 20px;
+            padding: 12px 14px;
+            background: var(--bg-subtle);
+            border-radius: var(--radius-md);
+            font-size: 0.84rem;
+            color: var(--text-secondary);
         }
 
-        .project-tech span {
-            background-color: var(--light);
-            color: var(--secondary);
-            padding: 5px 12px;
-            border-radius: 4px;
-            font-size: 0.85rem;
-            font-weight: 600;
-        }
-
-        .project-links {
-            display: flex;
-            gap: 15px;
-        }
-
-        /* Contact Section */
-        .contact-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 50px;
-        }
-
-        .contact-info h3 {
-            font-size: 1.8rem;
-            color: var(--primary);
-            margin-bottom: 20px;
-        }
-
-        .contact-info p {
-            margin-bottom: 30px;
-            color: var(--gray);
-        }
-
-        .contact-details {
-            margin-top: 30px;
-        }
-
-        .contact-item {
+        .project-features-list li {
             display: flex;
             align-items: center;
-            margin-bottom: 20px;
+            gap: 8px;
         }
 
-        .contact-item i {
-            width: 40px;
-            height: 40px;
-            background-color: var(--light);
-            border-radius: 50%;
+        .project-features-list li i {
+            color: var(--accent);
+            font-size: 0.75rem;
+        }
+
+        .project-tech-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-bottom: 22px;
+            margin-top: auto;
+        }
+
+        .p-tech {
+            font-size: 0.76rem;
+            font-weight: 700;
+            padding: 3px 9px;
+            border-radius: var(--radius-sm);
+            background: var(--bg-subtle);
+            color: var(--secondary);
+            border: 1px solid var(--border-color);
+        }
+
+        .project-card-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            border-top: 1px solid var(--border-color);
+            padding-top: 16px;
+        }
+
+        /* Professional Strengths Grid */
+        #strengths {
+            background-color: var(--bg-body);
+        }
+
+        .strengths-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+        }
+
+        .strength-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 26px;
+            box-shadow: var(--shadow-xs);
+            transition: var(--transition);
+        }
+
+        .strength-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--border-hover);
+            box-shadow: var(--shadow-md);
+        }
+
+        .strength-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: var(--radius-md);
+            background: var(--bg-subtle);
+            color: var(--secondary);
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-right: 15px;
-            color: var(--secondary);
+            font-size: 1.2rem;
+            margin-bottom: 16px;
         }
 
-        .contact-form {
-            background-color: var(--light);
-            padding: 30px;
-            border-radius: 8px;
+        .strength-card:nth-child(2n) .strength-icon {
+            color: var(--accent);
+        }
+
+        .strength-card:nth-child(3n) .strength-icon {
+            color: var(--indigo);
+        }
+
+        .strength-card h3 {
+            font-size: 1.12rem;
+            margin-bottom: 8px;
+        }
+
+        .strength-card p {
+            font-size: 0.88rem;
+            color: var(--text-muted);
+            line-height: 1.55;
+        }
+
+        /* Quick Developer Profile / Markdown Bio snippet */
+        .bio-snippet-section {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-xl);
+            padding: 36px;
+            margin-top: 48px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .bio-snippet-head {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 18px;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .bio-snippet-code {
+            background: var(--bg-body);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 18px;
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            white-space: pre-wrap;
+            overflow-x: auto;
+            overflow-y: auto;
+            max-height: 280px;
+            line-height: 1.6;
+        }
+
+        /* Contact Section */
+        #contact {
+            background-color: var(--bg-surface);
+            border-top: 1px solid var(--border-color);
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.15fr;
+            gap: 52px;
+            align-items: flex-start;
+        }
+
+        .contact-card-box {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+            margin-top: 28px;
+        }
+
+        .contact-channel-item {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 16px 20px;
+            background: var(--bg-subtle);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            transition: var(--transition);
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .contact-channel-item:hover {
+            border-color: var(--secondary);
+            transform: translateX(4px);
+        }
+
+        .contact-channel-item i {
+            width: 42px;
+            height: 42px;
+            border-radius: var(--radius-md);
+            background: var(--bg-surface);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--secondary);
+            font-size: 1.15rem;
+            border: 1px solid var(--border-color);
+            flex-shrink: 0;
+        }
+
+        .contact-channel-item h4 {
+            font-size: 0.95rem;
+            margin-bottom: 2px;
+        }
+
+        .contact-channel-item p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 0;
+        }
+
+        .form-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 36px;
+            box-shadow: var(--shadow-lg);
         }
 
         .form-group {
             margin-bottom: 20px;
+            position: relative;
         }
 
         .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            color: var(--primary);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.88rem;
             font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 7px;
+        }
+
+        .form-group label .req {
+            color: var(--error-color);
+        }
+
+        .input-box-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
         }
 
         .form-group input,
-        .form-group textarea {
+        .form-group textarea,
+        .form-group select {
             width: 100%;
-            padding: 12px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            font-size: 1rem;
-            transition: border 0.3s ease;
+            padding: 12px 16px;
+            background-color: var(--input-bg);
+            color: var(--text-primary);
+            border: 1.5px solid var(--input-border);
+            border-radius: var(--radius-md);
+            font-size: 0.93rem;
+            font-family: var(--font-main);
+            transition: var(--transition);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
         }
 
         .form-group input:focus,
-        .form-group textarea:focus {
+        .form-group textarea:focus,
+        .form-group select:focus {
             outline: none;
-            border-color: var(--secondary);
+            border-color: var(--border-focus);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+        }
+
+        .validation-indicator {
+            position: absolute;
+            right: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 0.95rem;
+            pointer-events: none;
+            display: none;
+        }
+
+        .form-group textarea ~ .validation-indicator {
+            top: 20px;
+            transform: none;
+        }
+
+        .form-group.is-invalid input,
+        .form-group.is-invalid textarea {
+            border-color: var(--error-color) !important;
+            background-color: var(--error-bg);
+            animation: shake 0.35s ease;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            20%, 60% { transform: translateX(-4px); }
+            40%, 80% { transform: translateX(4px); }
+        }
+
+        .form-group.is-invalid .validation-indicator.err {
+            display: block;
+            color: var(--error-color);
+        }
+
+        .form-group.is-valid input,
+        .form-group.is-valid textarea {
+            border-color: var(--success-color);
+        }
+
+        .form-group.is-valid .validation-indicator.succ {
+            display: block;
+            color: var(--success-color);
+        }
+
+        .err-hint {
+            display: none;
+            color: var(--error-color);
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-top: 5px;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .form-group.is-invalid .err-hint {
+            display: flex;
+        }
+
+        .char-tracker {
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            font-family: var(--font-mono);
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 13px;
+            font-size: 0.98rem;
+            position: relative;
+        }
+
+        .submit-spinner {
+            display: none;
+            width: 18px;
+            height: 18px;
+            border: 2px solid rgba(255, 255, 255, 0.4);
+            border-radius: 50%;
+            border-top-color: #ffffff;
+            animation: spin 0.7s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .submit-btn.loading .btn-content { display: none; }
+        .submit-btn.loading .submit-spinner { display: inline-block; }
+
+        /* Toast Container */
+        .toast-wrapper {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            z-index: 2000;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            max-width: 400px;
+            width: calc(100% - 48px);
+            pointer-events: none;
+        }
+
+        .toast-item {
+            pointer-events: auto;
+            background: var(--bg-surface-elevated);
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 14px 18px;
+            box-shadow: var(--shadow-xl);
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            opacity: 0;
+            transform: translateY(16px);
+            transition: all 0.25s ease;
+        }
+
+        .toast-item.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .toast-item.toast-success {
+            border-left: 4px solid var(--success-color);
+        }
+
+        .toast-item.toast-error {
+            border-left: 4px solid var(--error-color);
         }
 
         /* Footer */
         footer {
-            background-color: var(--primary);
-            color: white;
-            padding: 40px 0;
+            background-color: var(--bg-body);
+            border-top: 1px solid var(--border-color);
+            padding: 48px 0 28px;
             text-align: center;
         }
 
-        .footer-content {
+        .footer-socials {
             display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .footer-logo {
-            font-size: 1.8rem;
-            font-weight: 700;
-            margin-bottom: 20px;
-        }
-
-        .footer-logo span {
-            color: var(--accent);
-        }
-
-        .social-links {
-            display: flex;
-            gap: 20px;
+            justify-content: center;
+            gap: 14px;
             margin: 20px 0;
         }
 
-        .social-links a {
-            color: white;
-            font-size: 1.2rem;
-            transition: color 0.3s ease;
+        .footer-social-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: var(--radius-full);
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: var(--transition);
         }
 
-        .social-links a:hover {
-            color: var(--accent);
+        .footer-social-btn:hover {
+            background: var(--secondary);
+            color: #ffffff;
+            border-color: var(--secondary);
+            transform: translateY(-3px);
         }
 
-        .copyright {
-            margin-top: 20px;
-            color: rgba(255, 255, 255, 0.7);
+        /* Resume Modal & Printable Styles */
+        .resume-btn-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            background: linear-gradient(135deg, var(--secondary), var(--accent));
+            color: #ffffff !important;
+            padding: 8px 16px;
+            border-radius: var(--radius-full);
+            font-size: 0.86rem;
+            font-weight: 700;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+        }
+
+        .resume-btn-badge:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+            filter: brightness(1.08);
+        }
+
+        /* Resume Modal */
+        .resume-modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(15, 23, 42, 0.78);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            z-index: 3000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .resume-modal-overlay.open,
+        .resume-modal-overlay.active {
+            display: flex;
+        }
+
+        .resume-modal-container {
+            background: var(--bg-surface-elevated);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-xl);
+            width: 100%;
+            max-width: 900px;
+            max-height: 90vh;
+            height: 90vh;
+            display: flex;
+            flex-direction: column;
+            box-shadow: var(--shadow-xl);
+            overflow: hidden;
+            animation: modalFadeIn 0.25s ease-out;
+            margin: auto;
+        }
+
+        @keyframes modalFadeIn {
+            from { opacity: 0; transform: scale(0.96) translateY(12px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        .resume-modal-header {
+            padding: 16px 24px;
+            background: var(--bg-subtle);
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            flex-shrink: 0;
+        }
+
+        .resume-modal-header h3 {
+            font-size: 1.15rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin: 0;
+        }
+
+        .resume-modal-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .resume-modal-body {
+            padding: 28px;
+            overflow-y: auto;
+            overflow-x: hidden;
+            -webkit-overflow-scrolling: touch;
+            flex: 1 1 auto;
+            min-height: 0;
+            background: var(--bg-body);
+            scroll-behavior: smooth;
+        }
+
+        /* Printable Resume Paper Sheet */
+        .resume-paper {
+            background: #ffffff;
+            color: #1e293b;
+            padding: 40px;
+            border-radius: var(--radius-md);
+            border: 1px solid #e2e8f0;
+            box-shadow: var(--shadow-md);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            line-height: 1.5;
+        }
+
+        .resume-paper h1, .resume-paper h2, .resume-paper h3, .resume-paper h4 {
+            color: #0f172a;
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        .resume-header {
+            border-bottom: 2px solid #0f172a;
+            padding-bottom: 18px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .resume-name {
+            font-size: 2.1rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            color: #0f172a;
+            margin-bottom: 4px;
+        }
+
+        .resume-title {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: #2563eb;
+            letter-spacing: -0.01em;
+        }
+
+        .resume-contact-list {
+            list-style: none;
+            font-size: 0.85rem;
+            color: #475569;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            text-align: right;
+        }
+
+        .resume-contact-list a {
+            color: #2563eb;
+            text-decoration: none;
+        }
+
+        .resume-contact-list li i {
+            margin-right: 5px;
+            color: #0d9488;
+        }
+
+        .resume-sec {
+            margin-bottom: 22px;
+        }
+
+        .resume-sec-title {
+            font-size: 0.95rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: #0f172a;
+            border-bottom: 1.5px solid #cbd5e1;
+            padding-bottom: 4px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .resume-sec-title i {
+            color: #2563eb;
             font-size: 0.9rem;
         }
 
-        /* Responsive Styles */
-        @media (max-width: 992px) {
-            .hero-content h1 {
-                font-size: 2.8rem;
+        .resume-summary-text {
+            font-size: 0.9rem;
+            color: #334155;
+            line-height: 1.6;
+        }
+
+        .resume-skills-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px 20px;
+            font-size: 0.86rem;
+        }
+
+        .resume-skill-row strong {
+            color: #0f172a;
+        }
+
+        .resume-project-item {
+            margin-bottom: 14px;
+            page-break-inside: avoid;
+            break-inside: avoid;
+        }
+
+        .resume-project-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 3px;
+        }
+
+        .resume-project-name {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: #0f172a;
+        }
+
+        .resume-project-tech {
+            font-size: 0.78rem;
+            font-weight: 600;
+            color: #0d9488;
+            background: #f0fdfa;
+            border: 1px solid #ccfbf1;
+            padding: 2px 7px;
+            border-radius: 4px;
+        }
+
+        .resume-project-desc {
+            font-size: 0.85rem;
+            color: #334155;
+            margin-bottom: 4px;
+            line-height: 1.45;
+        }
+
+        .resume-project-bullets {
+            list-style: square;
+            padding-left: 18px;
+            font-size: 0.83rem;
+            color: #475569;
+            margin-bottom: 6px;
+        }
+
+        .resume-project-bullets li {
+            margin-bottom: 2px;
+        }
+
+        /* Print Media Styles */
+        @media print {
+            @page {
+                size: A4 portrait;
+                margin: 12mm 15mm;
             }
-            
-            .hero-content h2 {
-                font-size: 1.8rem;
+
+            *,
+            *::before,
+            *::after {
+                background: transparent !important;
+                color: #000000 !important;
+                box-shadow: none !important;
+                text-shadow: none !important;
+                filter: none !important;
             }
-            
-            .about-content {
-                grid-template-columns: 1fr;
+
+            html, body {
+                background: #ffffff !important;
+                color: #0f172a !important;
+                font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+                margin: 0 !important;
+                padding: 0 !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+                overflow: visible !important;
+                height: auto !important;
+                width: 100% !important;
+            }
+
+            /* Hide all web UI elements */
+            header, 
+            footer, 
+            #home, 
+            #about, 
+            #skills, 
+            #projects, 
+            #strengths, 
+            #contact, 
+            .toast-wrapper, 
+            .resume-modal-overlay,
+            nav,
+            .theme-toggle-btn,
+            .mobile-menu-btn {
+                display: none !important;
+                visibility: hidden !important;
+            }
+
+            /* Unhide and display printable resume container */
+            #printableResumeSection {
+                display: block !important;
+                visibility: visible !important;
+                position: static !important;
+                width: 100% !important;
+                max-width: 100% !important;
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+
+            .resume-paper {
+                display: block !important;
+                visibility: visible !important;
+                background: #ffffff !important;
+                color: #1e293b !important;
+                border: none !important;
+                box-shadow: none !important;
+                padding: 0 !important;
+                margin: 0 !important;
+                width: 100% !important;
+                max-width: 100% !important;
+            }
+
+            .resume-paper * {
+                visibility: visible !important;
+                color: #1e293b !important;
+            }
+
+            .resume-name {
+                color: #0f172a !important;
+                font-family: 'Space Grotesk', sans-serif !important;
+            }
+
+            .resume-title {
+                color: #2563eb !important;
+            }
+
+            .resume-sec-title {
+                color: #0f172a !important;
+                border-bottom: 1.5px solid #94a3b8 !important;
+                font-family: 'Space Grotesk', sans-serif !important;
+            }
+
+            .resume-project-tech {
+                background: #f1f5f9 !important;
+                color: #0f766e !important;
+                border: 1px solid #cbd5e1 !important;
+                padding: 2px 6px !important;
+            }
+
+            .resume-sec {
+                page-break-inside: avoid;
+                break-inside: avoid;
+                margin-bottom: 16px !important;
+            }
+
+            .resume-project-item {
+                page-break-inside: avoid;
+                break-inside: avoid;
+                margin-bottom: 12px !important;
+            }
+
+            a {
+                text-decoration: none !important;
+                color: #2563eb !important;
             }
         }
 
-        @media (max-width: 768px) {
-            .mobile-menu-btn {
-                display: block;
+        /* Hidden on screen by default, shown during print or cloned into modal */
+        #printableResumeSection {
+            display: none;
+        }
+
+        /* Responsive Breakpoints */
+        @media (max-width: 992px) {
+            .hero-grid,
+            .about-grid,
+            .contact-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
             }
-            
+            .hero h1 { font-size: 2.8rem; }
+        }
+
+        @media (max-width: 768px) {
+            .mobile-toggle { display: flex; align-items: center; justify-content: center; }
             nav {
                 position: fixed;
-                top: 80px;
+                top: 73px;
                 left: 0;
                 width: 100%;
-                background-color: white;
-                padding: 20px;
-                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+                background: var(--bg-surface);
+                border-bottom: 1px solid var(--border-color);
+                padding: 24px;
+                box-shadow: var(--shadow-xl);
                 transform: translateY(-100%);
                 opacity: 0;
                 visibility: hidden;
-                transition: all 0.3s ease;
+                transition: var(--transition);
             }
-            
-            nav.active {
+            nav.open {
                 transform: translateY(0);
                 opacity: 1;
                 visibility: visible;
             }
-            
             nav ul {
                 flex-direction: column;
+                align-items: flex-start;
+                gap: 16px;
             }
-            
-            nav ul li {
-                margin: 10px 0;
-            }
-            
-            .hero-btns {
-                flex-direction: column;
-                align-items: center;
-            }
-            
-            .section-title h2 {
-                font-size: 2rem;
-            }
-        }
-
-        @media (max-width: 576px) {
-            .hero {
-                padding-top: 120px;
-            }
-            
-            .hero-content h1 {
-                font-size: 2.2rem;
-            }
-            
-            .hero-content h2 {
-                font-size: 1.5rem;
-            }
-            
-            section {
-                padding: 60px 0;
-            }
-            
-            .projects-container {
+            .about-highlights-grid {
                 grid-template-columns: 1fr;
+            }
+            .resume-skills-grid {
+                grid-template-columns: 1fr;
+            }
+            .resume-contact-list {
+                text-align: left;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Header & Navigation -->
-    <header>
-        <div class="container header-container">
-            <a href="#home" class="logo">Imran<span>Kedir</span></a>
-            <button class="mobile-menu-btn" id="mobileMenuBtn">
-                <i class="fas fa-bars"></i>
-            </button>
-            <nav id="mainNav">
-                <ul>
-                    <li><a href="#home">Home</a></li>
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#skills">Skills</a></li>
-                    <li><a href="#projects">Projects</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                </ul>
-            </nav>
+
+    <!-- Header Navigation -->
+    <header id="topHeader">
+        <div class="container nav-container">
+            <a href="#home" class="brand-logo" id="brandLogo">
+                <div class="logo-avatar">IK</div>
+                <div class="logo-text">Imran <span>Kedir</span></div>
+            </a>
+
+            <div class="nav-actions">
+                <nav id="mainNav">
+                    <ul>
+                        <li><a href="#home" class="active">Home</a></li>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#skills">Skills</a></li>
+                        <li><a href="#projects">Projects</a></li>
+                        <li><a href="#strengths">Strengths</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </nav>
+
+                <!-- Printable Resume PDF Button -->
+                <button class="resume-btn-badge" id="navResumeBtn" title="View & Print Resume PDF">
+                    <i class="fas fa-file-pdf"></i> <span>Resume PDF</span>
+                </button>
+
+                <!-- Theme Switcher Button -->
+                <button class="theme-toggle-btn" id="themeToggleBtn" aria-label="Toggle dark mode" title="Switch Theme">
+                    <i class="fas fa-moon" id="themeIcon"></i>
+                </button>
+
+                <!-- Mobile Menu Button -->
+                <button class="mobile-toggle" id="mobileMenuBtn" aria-label="Open Navigation">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
         </div>
     </header>
 
     <!-- Hero Section -->
     <section class="hero" id="home">
         <div class="container">
-            <div class="hero-content">
-                <h1>Imran Kedir</h1>
-                <h2>Full-Stack Web Developer</h2>
-                <p>Building secure, scalable, and user-friendly web applications with a focus on real-world business systems and workflows.</p>
-                <div class="hero-btns">
-                    <a href="#projects" class="btn">View My Work</a>
-                    <a href="#contact" class="btn btn-accent">Contact Me</a>
+            <div class="hero-grid">
+                <div class="hero-text-col">
+                    <div class="hero-status-pill" id="heroStatusPill">
+                        <span class="status-dot"></span> Available for Web, Mobile & Full-Stack Projects
+                    </div>
+                    <h1 id="heroName">Imran Kedir</h1>
+                    <div class="hero-positioning" id="heroPositioning">
+                        Full-Stack Web Developer | React & Node.js Developer | Android Developer | Database Application Developer
+                    </div>
+                    <p class="hero-lead">
+                        Computer Science / Information Science graduate and full-stack software developer from Ethiopia. Building practical, database-driven web systems, Android apps, and Islamic technology solutions with robust workflows and clean architecture.
+                    </p>
+
+                    <div class="hero-pills-row">
+                        <span class="hero-tech-pill"><i class="fab fa-react"></i> React 19 & Vite</span>
+                        <span class="hero-tech-pill"><i class="fab fa-node-js"></i> Node.js & Express</span>
+                        <span class="hero-tech-pill"><i class="fab fa-php"></i> PHP & MySQL</span>
+                        <span class="hero-tech-pill"><i class="fas fa-database"></i> PostgreSQL & Prisma</span>
+                        <span class="hero-tech-pill"><i class="fab fa-android"></i> Kotlin & Jetpack Compose</span>
+                    </div>
+
+                    <div class="hero-buttons">
+                        <button type="button" class="btn btn-primary" id="heroResumeBtn" style="background: linear-gradient(135deg, var(--secondary), var(--indigo)); border-color: var(--secondary);">
+                            <i class="fas fa-file-pdf"></i> Print / PDF Resume
+                        </button>
+                        <a href="#projects" class="btn btn-outline" id="heroViewProjectsBtn">
+                            <i class="fas fa-layer-group"></i> Explore Projects
+                        </a>
+                        <a href="#contact" class="btn btn-accent" id="heroContactMeBtn">
+                            <i class="fas fa-paper-plane"></i> Get In Touch
+                        </a>
+                        <a href="https://github.com/imranka641" target="_blank" rel="noopener noreferrer" class="btn btn-outline" id="heroGithubBtn">
+                            <i class="fab fa-github"></i> GitHub Profile
+                        </a>
+                    </div>
+                </div>
+
+                <div class="hero-card-col">
+                    <div class="terminal-card" id="developerTerminalCard">
+                        <div class="terminal-header">
+                            <div class="terminal-dots">
+                                <span class="dot-red"></span>
+                                <span class="dot-yellow"></span>
+                                <span class="dot-green"></span>
+                            </div>
+                            <div class="terminal-title">imran-profile.ts</div>
+                            <div><i class="fas fa-code" style="color: var(--text-muted); font-size: 0.8rem;"></i></div>
+                        </div>
+                        <div class="terminal-body">
+                            <div class="code-line"><span class="code-key">const</span> developer = {</div>
+                            <div class="code-line" style="padding-left: 16px;"><span class="code-key">name:</span> <span class="code-str">"Imran Kedir"</span>,</div>
+                            <div class="code-line" style="padding-left: 16px;"><span class="code-key">location:</span> <span class="code-str">"Ethiopia 🇪🇹"</span>,</div>
+                            <div class="code-line" style="padding-left: 16px;"><span class="code-key">education:</span> <span class="code-str">"B.Sc. in CS / Information Science (Graduate)"</span>,</div>
+                            <div class="code-line" style="padding-left: 16px;"><span class="code-key">focusAreas:</span> [</div>
+                            <div class="code-line" style="padding-left: 32px;"><span class="code-str">"Full-Stack Web Systems"</span>,</div>
+                            <div class="code-line" style="padding-left: 32px;"><span class="code-str">"Android (Kotlin / Compose)"</span>,</div>
+                            <div class="code-line" style="padding-left: 32px;"><span class="code-str">"Database Modeling & RBAC"</span>,</div>
+                            <div class="code-line" style="padding-left: 32px;"><span class="code-str">"Islamic Tech Applications"</span></div>
+                            <div class="code-line" style="padding-left: 16px;">],</div>
+                            <div class="code-line" style="padding-left: 16px;"><span class="code-key">openForOpportunities:</span> <span class="code-bool">true</span></div>
+                            <div class="code-line">};</div>
+                        </div>
+                        <div class="terminal-metrics">
+                            <div>
+                                <div class="t-metric-num">6+</div>
+                                <div class="t-metric-lbl">Core Projects</div>
+                            </div>
+                            <div>
+                                <div class="t-metric-num">Full-Stack</div>
+                                <div class="t-metric-lbl">Web & Android</div>
+                            </div>
+                            <div>
+                                <div class="t-metric-num">B.Sc. Grad</div>
+                                <div class="t-metric-lbl">CS / Info Science</div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- About Section -->
+    <!-- About Me Section -->
     <section id="about">
         <div class="container">
-            <div class="section-title">
-                <h2>About Me</h2>
-                <p>Hands-on experience building practical web systems that solve real business problems</p>
+            <div class="section-header">
+                <span class="section-tag"><i class="fas fa-user"></i> Background</span>
+                <h2 class="section-title">About Me</h2>
+                <p class="section-subtitle">Real-world system engineering, honest developer experience, and continuous learning</p>
             </div>
-            <div class="about-content">
+
+            <div class="about-grid">
                 <div class="about-text">
-                    <h3>Full-Stack Developer Focused on Real-World Solutions</h3>
-                    <p>I specialize in developing complete web systems from concept to deployment, with a strong emphasis on creating practical business applications that solve real problems.</p>
-                    <p>My expertise includes building secure dashboards, efficient CRUD applications, robust authentication systems, and streamlined workflow solutions that help businesses operate more effectively.</p>
-                    <p>I have experience developing functional prototypes and MVPs that demonstrate core functionality while maintaining clean, scalable code architecture for future expansion.</p>
-                    
-                    <div class="experience-highlights">
-                        <div class="highlight">
-                            <i class="fas fa-check-circle"></i>
+                    <h3 style="font-size: 1.7rem; margin-bottom: 18px;">Full-Stack Software Developer & CS / IS Graduate</h3>
+                    <p>
+                        I am a Computer Science / Information Science graduate and software developer based in Ethiopia. Having successfully completed my degree program, my journey centers on developing real-world applications that solve tangible operational needs—from multi-role administrative platforms to educational mobile apps.
+                    </p>
+                    <p>
+                        I have hands-on experience building full-stack applications with both modern stacks (React, Node.js, Express, PostgreSQL, Prisma) and classic architectures (PHP, MySQL, REST APIs), alongside native Android development using Kotlin and Jetpack Compose.
+                    </p>
+                    <p>
+                        I am passionate about creating structured, secure database systems, role-based workflows, receipt/payment verification processes, bilingual interfaces (English & Amharic), and Islamic technology tools that benefit communities.
+                    </p>
+
+                    <div class="about-highlights-grid">
+                        <div class="about-hl-card" id="about-card-1">
+                            <i class="fas fa-layer-group"></i>
                             <div>
-                                <h4>System Development</h4>
-                                <p>Building complete web applications with frontend, backend, and database integration</p>
+                                <h4>Full-Stack Architecture</h4>
+                                <p>End-to-end frontend interfaces, robust API routes, and relational database schema modeling.</p>
                             </div>
                         </div>
-                        <div class="highlight">
-                            <i class="fas fa-check-circle"></i>
+                        <div class="about-hl-card" id="about-card-2">
+                            <i class="fas fa-shield-halved"></i>
                             <div>
-                                <h4>Business Applications</h4>
-                                <p>Creating solutions focused on practical workflows, data management, and user roles</p>
+                                <h4>Security & RBAC</h4>
+                                <p>JWT authentication, role-based access control, and payment/receipt verification workflows.</p>
                             </div>
                         </div>
-                        <div class="highlight">
-                            <i class="fas fa-check-circle"></i>
+                        <div class="about-hl-card" id="about-card-3">
+                            <i class="fas fa-mobile-screen"></i>
                             <div>
-                                <h4>Prototyping</h4>
-                                <p>Developing functional MVPs that demonstrate core system logic and workflows</p>
+                                <h4>Android Engineering</h4>
+                                <p>Native Android apps with Kotlin, Jetpack Compose, background tasks, and notifications.</p>
+                            </div>
+                        </div>
+                        <div class="about-hl-card" id="about-card-4">
+                            <i class="fas fa-language"></i>
+                            <div>
+                                <h4>Multilingual & Localized</h4>
+                                <p>Bilingual interfaces including English and Amharic with PDF/QR generation capabilities.</p>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="about-img">
-                    <div style="background-color: var(--light-gray); height: 400px; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: var(--gray);">
-                        <div style="text-align: center; padding: 20px;">
-                            <i class="fas fa-laptop-code" style="font-size: 4rem; margin-bottom: 20px; color: var(--accent);"></i>
-                            <h3 style="color: var(--primary);">Full-Stack Development</h3>
-                            <p>End-to-end web application development</p>
+
+                <div class="about-sidebar">
+                    <div class="profile-side-card" id="coreCompetenciesCard">
+                        <h3><i class="fas fa-compass"></i> Engineering Principles</h3>
+                        <ul class="profile-checklist">
+                            <li><i class="fas fa-circle-check"></i> Translating complex real-world requirements into functional software</li>
+                            <li><i class="fas fa-circle-check"></i> Designing normalized relational databases (PostgreSQL, MySQL)</li>
+                            <li><i class="fas fa-circle-check"></i> Writing RESTful endpoints with structured validation & error handling</li>
+                            <li><i class="fas fa-circle-check"></i> Implementing multi-department approval pipelines & audit trails</li>
+                            <li><i class="fas fa-circle-check"></i> Version control, Git workflows, and deployment best practices</li>
+                            <li><i class="fas fa-circle-check"></i> Continuous technical growth toward senior engineering standards</li>
+                        </ul>
+
+                        <div style="margin-top: 24px; padding-top: 20px; border-top: 1px solid var(--border-color); display: flex; align-items: center; justify-content: space-between;">
+                            <div>
+                                <span style="font-size: 0.78rem; color: var(--text-muted); text-transform: uppercase; font-weight: 700;">Location</span>
+                                <div style="font-weight: 700; color: var(--text-primary);">Ethiopia 🇪🇹</div>
+                            </div>
+                            <div>
+                                <span style="font-size: 0.78rem; color: var(--text-muted); text-transform: uppercase; font-weight: 700;">Focus</span>
+                                <div style="font-weight: 700; color: var(--secondary);">Web, Mobile & DB</div>
+                            </div>
                         </div>
+
+                        <button type="button" class="btn btn-outline btn-sm" id="aboutResumeBtn" style="width: 100%; margin-top: 18px; justify-content: center; gap: 8px;">
+                            <i class="fas fa-file-pdf"></i> View & Print Resume (PDF)
+                        </button>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Skills Section -->
-    <section id="skills" style="background-color: #f8f9fa;">
+    <!-- Technical Skills Section -->
+    <section id="skills">
         <div class="container">
-            <div class="section-title">
-                <h2>Technical Skills</h2>
-                <p>Comprehensive full-stack development capabilities for building complete web systems</p>
+            <div class="section-header">
+                <span class="section-tag"><i class="fas fa-code"></i> Toolkit</span>
+                <h2 class="section-title">Technical Skills</h2>
+                <p class="section-subtitle">Categorized technologies and tools utilized in active development</p>
             </div>
-            <div class="skills-container">
-                <div class="skill-category">
-                    <h3><i class="fas fa-server"></i> Backend Development</h3>
-                    <div class="skill-list">
-                        <div class="skill-item">PHP</div>
-                        <div class="skill-item">Node.js</div>
-                        <div class="skill-item">MySQL</div>
-                        <div class="skill-item">REST APIs</div>
-                        <div class="skill-item">Authentication</div>
-                        <div class="skill-item">System Architecture</div>
+
+            <div class="skills-grid">
+                <!-- Frontend Development -->
+                <div class="skill-group-card" id="skillGroupFrontend">
+                    <div class="skill-group-head">
+                        <div class="skill-icon-box"><i class="fab fa-react"></i></div>
+                        <div>
+                            <h3>Frontend Development</h3>
+                            <span>Modern web interfaces & state</span>
+                        </div>
+                    </div>
+                    <div class="skill-tags-cloud">
+                        <span class="skill-tag featured">React.js</span>
+                        <span class="skill-tag featured">React 19</span>
+                        <span class="skill-tag">JavaScript (ES6+)</span>
+                        <span class="skill-tag">Vite</span>
+                        <span class="skill-tag">Tailwind CSS</span>
+                        <span class="skill-tag">HTML5 & CSS3</span>
+                        <span class="skill-tag">Bootstrap</span>
+                        <span class="skill-tag">React Router</span>
+                        <span class="skill-tag">Axios</span>
+                        <span class="skill-tag">React Hook Form</span>
+                        <span class="skill-tag">TanStack React Query</span>
+                        <span class="skill-tag">Zustand</span>
+                        <span class="skill-tag">Redux Toolkit</span>
+                        <span class="skill-tag">Framer Motion</span>
+                        <span class="skill-tag">Responsive UI/UX</span>
                     </div>
                 </div>
-                
-                <div class="skill-category">
-                    <h3><i class="fas fa-desktop"></i> Frontend Development</h3>
-                    <div class="skill-list">
-                        <div class="skill-item">React</div>
-                        <div class="skill-item">JavaScript</div>
-                        <div class="skill-item">HTML5</div>
-                        <div class="skill-item">CSS3</div>
-                        <div class="skill-item">Responsive Design</div>
-                        <div class="skill-item">UI/UX Implementation</div>
+
+                <!-- Backend Development -->
+                <div class="skill-group-card" id="skillGroupBackend">
+                    <div class="skill-group-head">
+                        <div class="skill-icon-box"><i class="fab fa-node-js"></i></div>
+                        <div>
+                            <h3>Backend Development</h3>
+                            <span>Server logic, APIs & authentication</span>
+                        </div>
+                    </div>
+                    <div class="skill-tags-cloud">
+                        <span class="skill-tag featured">Node.js</span>
+                        <span class="skill-tag featured">Express.js</span>
+                        <span class="skill-tag featured">PHP</span>
+                        <span class="skill-tag">REST APIs</span>
+                        <span class="skill-tag">JWT Authentication</span>
+                        <span class="skill-tag">Role-Based Access Control (RBAC)</span>
+                        <span class="skill-tag">API Integration</span>
+                        <span class="skill-tag">Server-Side Development</span>
+                        <span class="skill-tag">File Uploads & Management</span>
+                        <span class="skill-tag">Middleware Architecture</span>
                     </div>
                 </div>
-                
-                <div class="skill-category">
-                    <h3><i class="fas fa-cogs"></i> Systems & Security</h3>
-                    <div class="skill-list">
-                        <div class="skill-item">Role-Based Access Control</div>
-                        <div class="skill-item">Secure Authentication</div>
-                        <div class="skill-item">Workflow Systems</div>
-                        <div class="skill-item">Data Management</div>
-                        <div class="skill-item">System Design</div>
-                        <div class="skill-item">Business Logic</div>
+
+                <!-- Database & Modeling -->
+                <div class="skill-group-card" id="skillGroupDatabase">
+                    <div class="skill-group-head">
+                        <div class="skill-icon-box"><i class="fas fa-database"></i></div>
+                        <div>
+                            <h3>Database Engineering</h3>
+                            <span>Relational schemas & persistence</span>
+                        </div>
+                    </div>
+                    <div class="skill-tags-cloud">
+                        <span class="skill-tag featured">MySQL</span>
+                        <span class="skill-tag featured">PostgreSQL</span>
+                        <span class="skill-tag featured">Prisma ORM</span>
+                        <span class="skill-tag">Database Normalization</span>
+                        <span class="skill-tag">Relational Modeling</span>
+                        <span class="skill-tag">SQL Queries & Indexes</span>
+                        <span class="skill-tag">CRUD Operations</span>
+                        <span class="skill-tag">phpMyAdmin</span>
+                        <span class="skill-tag">MySQL Workbench</span>
+                    </div>
+                </div>
+
+                <!-- Mobile Development -->
+                <div class="skill-group-card" id="skillGroupMobile">
+                    <div class="skill-group-head">
+                        <div class="skill-icon-box"><i class="fab fa-android"></i></div>
+                        <div>
+                            <h3>Mobile Development</h3>
+                            <span>Native Android applications</span>
+                        </div>
+                    </div>
+                    <div class="skill-tags-cloud">
+                        <span class="skill-tag featured">Kotlin</span>
+                        <span class="skill-tag featured">Jetpack Compose</span>
+                        <span class="skill-tag">Android Studio</span>
+                        <span class="skill-tag">Gradle</span>
+                        <span class="skill-tag">Mobile UI/UX</span>
+                        <span class="skill-tag">Local Notifications</span>
+                        <span class="skill-tag">Background Tasks</span>
+                        <span class="skill-tag">Mobile REST Client</span>
+                    </div>
+                </div>
+
+                <!-- Tools & Environment -->
+                <div class="skill-group-card" id="skillGroupTools">
+                    <div class="skill-group-head">
+                        <div class="skill-icon-box"><i class="fas fa-screwdriver-wrench"></i></div>
+                        <div>
+                            <h3>Tools & Environment</h3>
+                            <span>Development tooling & workflows</span>
+                        </div>
+                    </div>
+                    <div class="skill-tags-cloud">
+                        <span class="skill-tag featured">Git & GitHub</span>
+                        <span class="skill-tag">VS Code</span>
+                        <span class="skill-tag">Postman</span>
+                        <span class="skill-tag">XAMPP</span>
+                        <span class="skill-tag">npm</span>
+                        <span class="skill-tag">Maven</span>
+                        <span class="skill-tag">WordPress</span>
+                        <span class="skill-tag">PowerShell</span>
+                        <span class="skill-tag">Linux / Windows Environments</span>
+                    </div>
+                </div>
+
+                <!-- Cloud, Deployment & Specialized -->
+                <div class="skill-group-card" id="skillGroupCloud">
+                    <div class="skill-group-head">
+                        <div class="skill-icon-box"><i class="fas fa-cloud"></i></div>
+                        <div>
+                            <h3>Cloud & Applied Concepts</h3>
+                            <span>Deployments, workflows & algorithms</span>
+                        </div>
+                    </div>
+                    <div class="skill-tags-cloud">
+                        <span class="skill-tag">GitHub Pages</span>
+                        <span class="skill-tag">Cloudinary</span>
+                        <span class="skill-tag">AWS S3 Concepts</span>
+                        <span class="skill-tag">Payment Verification Workflows</span>
+                        <span class="skill-tag">QR-Code Integration</span>
+                        <span class="skill-tag">PDF Generation</span>
+                        <span class="skill-tag">Bilingual Apps (Amharic/English)</span>
+                        <span class="skill-tag">Information Retrieval (TF-IDF)</span>
+                        <span class="skill-tag">Data Mining (Naive Bayes, Apriori)</span>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Projects Section -->
+    <!-- Major Projects Section -->
     <section id="projects">
         <div class="container">
-            <div class="section-title">
-                <h2>Projects</h2>
-                <p>Real-world applications demonstrating full-stack development and system-building capabilities</p>
+            <div class="section-header">
+                <span class="section-tag"><i class="fas fa-briefcase"></i> Portfolio</span>
+                <h2 class="section-title">Featured Projects</h2>
+                <p class="section-subtitle">Real-world applications demonstrating practical full-stack, mobile, and system design experience</p>
             </div>
-            <div class="projects-container">
-                <div class="project-card">
-                    <div class="project-img" style="background-color: #e3f2fd;">
-                        <div style="text-align: center; padding: 20px;">
-                            <i class="fas fa-utensils" style="font-size: 3rem; color: var(--accent); margin-bottom: 15px;"></i>
-                            <h3 style="color: var(--primary);">Food Ordering System</h3>
-                        </div>
+
+            <!-- Filter Buttons -->
+            <div class="project-filters" id="projectFilterGroup">
+                <button class="filter-btn active" data-filter="all">All Projects</button>
+                <button class="filter-btn" data-filter="fullstack">Full-Stack & Web</button>
+                <button class="filter-btn" data-filter="systems">Enterprise & Workflows</button>
+                <button class="filter-btn" data-filter="mobile">Mobile (Android)</button>
+            </div>
+
+            <div class="projects-grid" id="projectsGrid">
+
+                <!-- 1. Islamic Learning Platform -->
+                <div class="project-card" data-category="fullstack" id="project-islamic-learning">
+                    <div class="project-header-bar">
+                        <div class="project-icon-circle"><i class="fas fa-book-quran"></i></div>
+                        <span class="project-category-badge">Full-Stack Platform</span>
                     </div>
-                    <div class="project-content">
-                        <h3>Food Ordering System</h3>
-                        <p>A complete full-stack web application with separate customer and admin panels. Features secure login, order management, menu customization, and receipt upload functionality.</p>
-                        <div class="project-tech">
-                            <span>PHP</span>
-                            <span>MySQL</span>
-                            <span>JavaScript</span>
-                            <span>HTML/CSS</span>
-                            <span>Authentication</span>
+                    <div class="project-body">
+                        <h3>Islamic Learning Platform</h3>
+                        <p class="project-desc">
+                            A comprehensive web-based e-learning system featuring role-based dashboards for students and administrators, course enrollment workflows, receipt uploads, and educational resource distribution.
+                        </p>
+                        <ul class="project-features-list">
+                            <li><i class="fas fa-check"></i> Student & Admin multi-role dashboards</li>
+                            <li><i class="fas fa-check"></i> Course approval/rejection & receipt verification workflow</li>
+                            <li><i class="fas fa-check"></i> Multilingual interface & downloadable PDF study resources</li>
+                        </ul>
+                        <div class="project-tech-tags">
+                            <span class="p-tech">React.js</span>
+                            <span class="p-tech">Node.js</span>
+                            <span class="p-tech">Express</span>
+                            <span class="p-tech">PostgreSQL</span>
+                            <span class="p-tech">Prisma</span>
+                            <span class="p-tech">JWT Auth</span>
                         </div>
-                        <div class="project-links">
-                            <a href="https://imran13.infinityfreeapp.com/" class="btn">Live Demo</a>
-                            <a href="#contact" class="btn btn-accent">More Details</a>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="project-card">
-                    <div class="project-img" style="background-color: #f0f4ff;">
-                        <div style="text-align: center; padding: 20px;">
-                            <i class="fas fa-file-invoice-dollar" style="font-size: 3rem; color: var(--secondary); margin-bottom: 15px;"></i>
-                            <h3 style="color: var(--primary);">Tax Clearance / TCC Prototype</h3>
-                        </div>
-                    </div>
-                    <div class="project-content">
-                        <h3>Tax Clearance / TCC Prototype</h3>
-                        <p>A workflow-based approval system with React frontend and Node.js backend. Institutional/government-style system prototype demonstrating multi-level approval workflows and document processing.</p>
-                        <div class="project-tech">
-                            <span>React</span>
-                            <span>Node.js</span>
-                            <span>MySQL</span>
-                            <span>REST API</span>
-                            <span>Workflow System</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="#" class="btn">View Prototype</a>
-                            <a href="#contact" class="btn btn-accent">Case Study</a>
+                        <div class="project-card-footer">
+                            <a href="#contact" class="btn btn-sm"><i class="fas fa-folder-open"></i> Details</a>
+                            <span style="font-size: 0.78rem; color: var(--text-muted);"><i class="fas fa-shield-alt"></i> Auth & RBAC</span>
                         </div>
                     </div>
                 </div>
+
+                <!-- 2. Tax Clearance Certificate System -->
+                <div class="project-card" data-category="systems" id="project-tax-clearance">
+                    <div class="project-header-bar">
+                        <div class="project-icon-circle"><i class="fas fa-file-invoice-dollar"></i></div>
+                        <span class="project-category-badge">Government / Enterprise</span>
+                    </div>
+                    <div class="project-body">
+                        <h3>Tax Clearance Certificate (TCC) System</h3>
+                        <p class="project-desc">
+                            An institutional workflow prototype enabling taxpayer registration, duplicate registration checks, administrative receipt verification, and automated generation of QR-code-enabled PDF certificates.
+                        </p>
+                        <ul class="project-features-list">
+                            <li><i class="fas fa-check"></i> QR-code-enabled digital PDF certificate generation</li>
+                            <li><i class="fas fa-check"></i> Full English & Amharic bilingual interface</li>
+                            <li><i class="fas fa-check"></i> Taxpayer duplicate prevention & payment audit tracking</li>
+                        </ul>
+                        <div class="project-tech-tags">
+                            <span class="p-tech">React.js</span>
+                            <span class="p-tech">Node.js</span>
+                            <span class="p-tech">MySQL</span>
+                            <span class="p-tech">REST API</span>
+                            <span class="p-tech">QR Code</span>
+                            <span class="p-tech">Amharic Support</span>
+                        </div>
+                        <div class="project-card-footer">
+                            <a href="#contact" class="btn btn-sm"><i class="fas fa-diagram-project"></i> Architecture</a>
+                            <span style="font-size: 0.78rem; color: var(--text-muted);"><i class="fas fa-qrcode"></i> QR & PDF</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3. University Clearance System -->
+                <div class="project-card" data-category="systems" id="project-university-clearance">
+                    <div class="project-header-bar">
+                        <div class="project-icon-circle"><i class="fas fa-graduation-cap"></i></div>
+                        <span class="project-category-badge">Multi-Department System</span>
+                    </div>
+                    <div class="project-body">
+                        <h3>University Clearance System</h3>
+                        <p class="project-desc">
+                            A multi-tier approval workflow system streamlining student clearance across library, registrar, finance, dormitories, and sports departments with super-admin monitoring.
+                        </p>
+                        <ul class="project-features-list">
+                            <li><i class="fas fa-check"></i> Student progress tracking dashboard</li>
+                            <li><i class="fas fa-check"></i> Multi-department clearance approval & rejection lifecycle</li>
+                            <li><i class="fas fa-check"></i> Super-admin oversight and role management</li>
+                        </ul>
+                        <div class="project-tech-tags">
+                            <span class="p-tech">React.js</span>
+                            <span class="p-tech">Node.js</span>
+                            <span class="p-tech">MySQL</span>
+                            <span class="p-tech">RBAC</span>
+                            <span class="p-tech">Workflow Engine</span>
+                        </div>
+                        <div class="project-card-footer">
+                            <a href="#contact" class="btn btn-sm"><i class="fas fa-sitemap"></i> Request Walkthrough</a>
+                            <span style="font-size: 0.78rem; color: var(--text-muted);"><i class="fas fa-users-gear"></i> Multi-Dept</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 4. Ethiopian Food Ordering System -->
+                <div class="project-card" data-category="fullstack" id="project-food-ordering">
+                    <div class="project-header-bar">
+                        <div class="project-icon-circle"><i class="fas fa-utensils"></i></div>
+                        <span class="project-category-badge">E-Commerce & Orders</span>
+                    </div>
+                    <div class="project-body">
+                        <h3>Ethiopian Food Ordering System</h3>
+                        <p class="project-desc">
+                            A full-stack food delivery and restaurant management application built with PHP and MySQL. Includes separate customer ordering and admin management portals with local payment options.
+                        </p>
+                        <ul class="project-features-list">
+                            <li><i class="fas fa-check"></i> Customer food catalog & cart management</li>
+                            <li><i class="fas fa-check"></i> Admin order tracking, receipt uploads & menu controls</li>
+                            <li><i class="fas fa-check"></i> Ethiopian local payment workflow integration</li>
+                        </ul>
+                        <div class="project-tech-tags">
+                            <span class="p-tech">PHP</span>
+                            <span class="p-tech">MySQL</span>
+                            <span class="p-tech">JavaScript</span>
+                            <span class="p-tech">HTML/CSS</span>
+                            <span class="p-tech">Local Payments</span>
+                        </div>
+                        <div class="project-card-footer">
+                            <a href="https://imran13.infinityfreeapp.com/" target="_blank" rel="noopener noreferrer" class="btn btn-sm"><i class="fas fa-arrow-up-right-from-square"></i> Live Demo</a>
+                            <span style="font-size: 0.78rem; color: var(--text-muted);"><i class="fas fa-credit-card"></i> Payment Flows</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 5. Islamic Android Applications -->
+                <div class="project-card" data-category="mobile" id="project-islamic-android">
+                    <div class="project-header-bar">
+                        <div class="project-icon-circle"><i class="fab fa-android"></i></div>
+                        <span class="project-category-badge">Android Native App</span>
+                    </div>
+                    <div class="project-body">
+                        <h3>Islamic Daily Zikr & Android Apps</h3>
+                        <p class="project-desc">
+                            Native mobile application built using Kotlin and Jetpack Compose. Delivers daily zikr recitation counters, Islamic content, progress tracking, scheduled notifications, and personalized themes.
+                        </p>
+                        <ul class="project-features-list">
+                            <li><i class="fas fa-check"></i> Modern Jetpack Compose declarative UI</li>
+                            <li><i class="fas fa-check"></i> Daily zikr progress tracking & interactive counters</li>
+                            <li><i class="fas fa-check"></i> Background notification scheduling & reminders</li>
+                        </ul>
+                        <div class="project-tech-tags">
+                            <span class="p-tech">Kotlin</span>
+                            <span class="p-tech">Jetpack Compose</span>
+                            <span class="p-tech">Android Studio</span>
+                            <span class="p-tech">Notifications</span>
+                            <span class="p-tech">Local Storage</span>
+                        </div>
+                        <div class="project-card-footer">
+                            <a href="#contact" class="btn btn-sm"><i class="fas fa-mobile-screen-button"></i> Mobile Showcase</a>
+                            <span style="font-size: 0.78rem; color: var(--text-muted);"><i class="fab fa-android"></i> Compose UI</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 6. Real Estate / Business Feasibility Systems -->
+                <div class="project-card" data-category="systems" id="project-business-systems">
+                    <div class="project-header-bar">
+                        <div class="project-icon-circle"><i class="fas fa-chart-line"></i></div>
+                        <span class="project-category-badge">Business & Analytics</span>
+                    </div>
+                    <div class="project-body">
+                        <h3>Real Estate & Feasibility Analysis Systems</h3>
+                        <p class="project-desc">
+                            Data-driven application modules for real estate calculations, financial projection models, feasibility metrics, and structured system documentation for business planning.
+                        </p>
+                        <ul class="project-features-list">
+                            <li><i class="fas fa-check"></i> Automated property valuation & ROI calculations</li>
+                            <li><i class="fas fa-check"></i> Relational database schema design for assets & tenants</li>
+                            <li><i class="fas fa-check"></i> Professional system architecture documentation</li>
+                        </ul>
+                        <div class="project-tech-tags">
+                            <span class="p-tech">Database Modeling</span>
+                            <span class="p-tech">Financial Logic</span>
+                            <span class="p-tech">System Design</span>
+                            <span class="p-tech">SQL</span>
+                        </div>
+                        <div class="project-card-footer">
+                            <a href="#contact" class="btn btn-sm"><i class="fas fa-file-lines"></i> Case Study</a>
+                            <span style="font-size: 0.78rem; color: var(--text-muted);"><i class="fas fa-calculator"></i> Logic & DB</span>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
     </section>
 
-    <!-- Portfolio Focus -->
-    <section style="background-color: #f8f9fa;">
+    <!-- Professional Strengths Section -->
+    <section id="strengths">
         <div class="container">
-            <div class="section-title">
-                <h2>Portfolio Focus</h2>
-                <p>Emphasizing practical system development over just UI design</p>
+            <div class="section-header">
+                <span class="section-tag"><i class="fas fa-star"></i> Capabilities</span>
+                <h2 class="section-title">Professional Strengths</h2>
+                <p class="section-subtitle">What I bring to software engineering teams, internships, and development projects</p>
             </div>
-            <div style="max-width: 800px; margin: 0 auto;">
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px;">
-                    <div style="text-align: center; padding: 30px; background-color: white; border-radius: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.05);">
-                        <i class="fas fa-sitemap" style="font-size: 2.5rem; color: var(--accent); margin-bottom: 20px;"></i>
-                        <h3 style="color: var(--primary); margin-bottom: 15px;">Real-World Use Cases</h3>
-                        <p style="color: var(--gray);">Focus on practical business applications that solve actual problems with measurable results.</p>
+
+            <div class="strengths-grid">
+                <div class="strength-card">
+                    <div class="strength-icon"><i class="fas fa-code-compare"></i></div>
+                    <h3>Complete App Lifecycle</h3>
+                    <p>Ability to build full-stack web and mobile apps from scratch—designing schemas, APIs, business logic, and UI components.</p>
+                </div>
+
+                <div class="strength-card">
+                    <div class="strength-icon"><i class="fas fa-database"></i></div>
+                    <h3>Database-Driven Architecture</h3>
+                    <p>Deep appreciation of relational database modeling, normalization, relationships, indexes, and data integrity in PostgreSQL & MySQL.</p>
+                </div>
+
+                <div class="strength-card">
+                    <div class="strength-icon"><i class="fas fa-lock"></i></div>
+                    <h3>Auth & RBAC Workflows</h3>
+                    <p>Experienced in structuring JWT authentication, password hashing, and role-based permissions across multi-tier admin and user dashboards.</p>
+                </div>
+
+                <div class="strength-card">
+                    <div class="strength-icon"><i class="fas fa-receipt"></i></div>
+                    <h3>Payment & Verification Pipelines</h3>
+                    <p>Hands-on implementation of receipt upload, admin review queues, verification status changes, and automated QR/PDF certification.</p>
+                </div>
+
+                <div class="strength-card">
+                    <div class="strength-icon"><i class="fas fa-arrows-split-up-and-left"></i></div>
+                    <h3>Modern & Classic Stacks</h3>
+                    <p>Comfortable working with modern React 19/Node.js ecosystems as well as traditional PHP/MySQL environments.</p>
+                </div>
+
+                <div class="strength-card">
+                    <div class="strength-icon"><i class="fas fa-bug-slash"></i></div>
+                    <h3>Debugging & Problem Solving</h3>
+                    <p>Methodical approach to troubleshooting deployment issues, environment configurations, API payloads, and database constraints.</p>
+                </div>
+            </div>
+
+            <!-- Copyable Bio / Resume Markdown Section -->
+            <div class="bio-snippet-section" id="bioSnippetBox">
+                <div class="bio-snippet-head">
+                    <div>
+                        <h3 style="font-size: 1.2rem; margin-bottom: 4px;"><i class="fas fa-file-code" style="color: var(--secondary);"></i> Developer Profile Summary (Markdown / Bio)</h3>
+                        <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0;">Ready to copy for GitHub README, LinkedIn, or developer applications</p>
                     </div>
-                    <div style="text-align: center; padding: 30px; background-color: white; border-radius: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.05);">
-                        <i class="fas fa-code" style="font-size: 2.5rem; color: var(--secondary); margin-bottom: 20px;"></i>
-                        <h3 style="color: var(--primary); margin-bottom: 15px;">System Logic & Architecture</h3>
-                        <p style="color: var(--gray);">Highlighting backend functionality, database design, and workflow logic beyond just interface design.</p>
-                    </div>
-                    <div style="text-align: center; padding: 30px; background-color: white; border-radius: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.05);">
-                        <i class="fas fa-shield-alt" style="font-size: 2.5rem; color: var(--accent); margin-bottom: 20px;"></i>
-                        <h3 style="color: var(--primary); margin-bottom: 15px;">Security & Scalability</h3>
-                        <p style="color: var(--gray);">Building applications with proper authentication, data protection, and architecture for growth.</p>
+                    <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                        <button class="btn btn-primary btn-sm" id="bioPrintResumeBtn" style="background: linear-gradient(135deg, var(--secondary), var(--accent)); border-color: var(--secondary);">
+                            <i class="fas fa-file-pdf"></i> <span>Print / PDF Resume</span>
+                        </button>
+                        <button class="btn btn-outline btn-sm" id="copyBioBtn">
+                            <i class="fas fa-copy"></i> <span id="copyBtnText">Copy Markdown</span>
+                        </button>
                     </div>
                 </div>
+                <pre class="bio-snippet-code" id="bioCodeBlock">### Imran Kedir — Full-Stack & Android Developer (B.Sc. Graduate)
+**Location**: Ethiopia 🇪🇹 | **Email**: imranka641@gmail.com
+**Education**: B.Sc. in Computer Science / Information Science (Graduate)
+**Positioning**: Full-Stack Web Developer | React & Node.js Developer | Android Developer | Database Systems
+
+- **Frontend**: React.js, React 19, Vite, Tailwind CSS, JavaScript (ES6+), React Router, React Hook Form, TanStack Query, Zustand, Bootstrap
+- **Backend & APIs**: Node.js, Express.js, PHP, REST APIs, JWT Auth, Role-Based Access Control (RBAC), File Upload Systems
+- **Databases**: PostgreSQL, MySQL, Prisma ORM, Database Normalization, Relational Schema Modeling, SQL Queries
+- **Mobile**: Android Studio, Kotlin, Jetpack Compose, Gradle, Notifications, Background Scheduling
+- **Applied Experience**: Payment & Receipt Verification Workflows, QR Code Generation, PDF Export, Bilingual Amharic/English Platforms, Islamic Technology Applications</pre>
             </div>
         </div>
     </section>
 
-    <!-- Contact Section -->
+    <!-- Contact Section with Visual Validation -->
     <section id="contact">
         <div class="container">
-            <div class="section-title">
-                <h2>Contact Me</h2>
-                <p>Interested in working together? Get in touch to discuss your project requirements</p>
+            <div class="section-header">
+                <span class="section-tag"><i class="fas fa-envelope"></i> Connect</span>
+                <h2 class="section-title">Get In Touch</h2>
+                <p class="section-subtitle">Have a project, internship opportunity, or question? Send me a message directly.</p>
             </div>
-            <div class="contact-container">
-                <div class="contact-info">
-                    <h3>Let's Build Something Great</h3>
-                    <p>I specialize in developing complete web systems for businesses and organizations. Whether you need a custom dashboard, workflow application, or full-stack business solution, I can help bring your project to life.</p>
-                    <p>My approach focuses on understanding your business needs and creating practical, scalable solutions that deliver real value.</p>
-                    
-                    <div class="contact-details">
-                        <div class="contact-item">
+
+            <div class="contact-grid">
+                <div class="contact-info-col">
+                    <h3 style="font-size: 1.6rem; margin-bottom: 14px;">Let's Build Systems Together</h3>
+                    <p style="color: var(--text-muted); font-size: 1rem; line-height: 1.65; margin-bottom: 24px;">
+                        Whether you need a custom full-stack web application, a database-backed administrative portal, an Android mobile app, or a workflow system with payment verification, I am eager to collaborate.
+                    </p>
+
+                    <div class="contact-card-box">
+                        <a href="mailto:imranka641@gmail.com" class="contact-channel-item" id="contactEmailLink">
                             <i class="fas fa-envelope"></i>
                             <div>
-                                <h4>Email</h4>
+                                <h4>Email Address</h4>
                                 <p>imranka641@gmail.com</p>
                             </div>
-                        </div>
-                        <div class="contact-item">
-                            <i class="fas fa-briefcase"></i>
+                        </a>
+
+                        <a href="https://github.com/imranka641" target="_blank" rel="noopener noreferrer" class="contact-channel-item" id="contactGithubLink">
+                            <i class="fab fa-github"></i>
                             <div>
-                                <h4>Services</h4>
-                                <p>Full-Stack Development • System Architecture • Business Applications</p>
+                                <h4>GitHub Profile</h4>
+                                <p>github.com/imranka641</p>
                             </div>
-                        </div>
-                        <div class="contact-item">
-                            <i class="fas fa-clock"></i>
+                        </a>
+
+                        <div class="contact-channel-item" id="contactLocationItem">
+                            <i class="fas fa-location-dot"></i>
                             <div>
-                                <h4>Availability</h4>
-                                <p>Available for freelance projects and full-time opportunities</p>
+                                <h4>Location & Availability</h4>
+                                <p>Ethiopia • Open for Remote & Full-Stack Engagements</p>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="contact-form">
-                    <form id="contactForm">
-                        <div class="form-group">
-                            <label for="name">Your Name</label>
-                            <input type="text" id="name" required>
+
+                <!-- Form Card -->
+                <div class="form-card" id="contactFormWrapper">
+                    <form id="contactForm" novalidate>
+                        <!-- Name Field -->
+                        <div class="form-group" id="group-name">
+                            <label for="name">
+                                <span>Your Name <span class="req">*</span></span>
+                            </label>
+                            <div class="input-box-wrapper">
+                                <input type="text" id="name" name="name" placeholder="e.g. Alex Morgan" autocomplete="name" required>
+                                <i class="fas fa-circle-exclamation validation-indicator err"></i>
+                                <i class="fas fa-circle-check validation-indicator succ"></i>
+                            </div>
+                            <div class="err-hint" id="nameError">
+                                <i class="fas fa-triangle-exclamation"></i>
+                                <span>Please enter your name (at least 2 characters).</span>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label for="email">Your Email</label>
-                            <input type="email" id="email" required>
+
+                        <!-- Email Field -->
+                        <div class="form-group" id="group-email">
+                            <label for="email">
+                                <span>Your Email <span class="req">*</span></span>
+                            </label>
+                            <div class="input-box-wrapper">
+                                <input type="email" id="email" name="email" placeholder="name@example.com" autocomplete="email" required>
+                                <i class="fas fa-circle-exclamation validation-indicator err"></i>
+                                <i class="fas fa-circle-check validation-indicator succ"></i>
+                            </div>
+                            <div class="err-hint" id="emailError">
+                                <i class="fas fa-triangle-exclamation"></i>
+                                <span>Please enter a valid email address.</span>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label for="subject">Subject</label>
-                            <input type="text" id="subject" required>
+
+                        <!-- Project Type / Subject Field -->
+                        <div class="form-group" id="group-subject">
+                            <label for="subject">
+                                <span>Topic or Project Type <span class="req">*</span></span>
+                            </label>
+                            <div class="input-box-wrapper">
+                                <input type="text" id="subject" name="subject" placeholder="e.g. Full-Stack Web Application / Junior Developer Role" required>
+                                <i class="fas fa-circle-exclamation validation-indicator err"></i>
+                                <i class="fas fa-circle-check validation-indicator succ"></i>
+                            </div>
+                            <div class="err-hint" id="subjectError">
+                                <i class="fas fa-triangle-exclamation"></i>
+                                <span>Please enter a subject (at least 3 characters).</span>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label for="message">Project Details</label>
-                            <textarea id="message" rows="5" required></textarea>
+
+                        <!-- Message Field -->
+                        <div class="form-group" id="group-message">
+                            <label for="message">
+                                <span>Project Details / Message <span class="req">*</span></span>
+                                <span class="char-tracker" id="charTracker">0 / 1000</span>
+                            </label>
+                            <div class="input-box-wrapper">
+                                <textarea id="message" name="message" rows="4" maxlength="1000" placeholder="Tell me about your project requirements, technology preferences, or inquiry..." required></textarea>
+                                <i class="fas fa-circle-exclamation validation-indicator err"></i>
+                                <i class="fas fa-circle-check validation-indicator succ"></i>
+                            </div>
+                            <div class="err-hint" id="messageError">
+                                <i class="fas fa-triangle-exclamation"></i>
+                                <span>Please provide message details (at least 10 characters).</span>
+                            </div>
                         </div>
-                        <button type="submit" class="btn btn-accent" style="width: 100%;">Send Message</button>
+
+                        <!-- Submit Button -->
+                        <button type="submit" class="btn btn-accent submit-btn" id="contactSubmitBtn">
+                            <span class="btn-content"><i class="fas fa-paper-plane"></i> Send Message</span>
+                            <span class="submit-spinner" aria-hidden="true"></span>
+                        </button>
                     </form>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <div class="footer-content">
-                <a href="#home" class="footer-logo">Imran<span>Kedir</span></a>
-                <p style="max-width: 600px; margin-bottom: 20px; color: rgba(255,255,255,0.8);">Full-Stack Web Developer specializing in secure, scalable, and user-friendly business applications.</p>
-                <div class="social-links">
-                    <a href="https://github.com/imranka641"><i class="fab fa-github"></i></a>
-                    <a href="#"><i class="fab fa-linkedin"></i></a>
-                    <a href="#"><i class="fab fa-twitter"></i></a>
-                    <a href="#"><i class="fab fa-codepen"></i></a>
+    <!-- Toast Notifications -->
+    <div class="toast-wrapper" id="toastWrapper" aria-live="polite" aria-atomic="true"></div>
+
+    <!-- Printable Resume Section (Rendered on print or inside preview modal) -->
+    <div id="printableResumeSection">
+        <div class="resume-paper" id="printableResumeContent">
+            <!-- Resume Header -->
+            <div class="resume-header">
+                <div>
+                    <h1 class="resume-name">Imran Kedir</h1>
+                    <div class="resume-title">Full-Stack Web Developer | React & Node.js Developer | Android Developer</div>
+                    <div style="font-size: 0.88rem; color: #475569; margin-top: 3px; font-weight: 500;">
+                        Database-Driven Systems • Workflow Architectures • Islamic Technology Solutions
+                    </div>
                 </div>
-                <div class="copyright">
-                    &copy; 2023 Imran Kedir. All rights reserved.
+                <div>
+                    <ul class="resume-contact-list">
+                        <li><i class="fas fa-envelope"></i> <a href="mailto:imranka641@gmail.com">imranka641@gmail.com</a></li>
+                        <li><i class="fab fa-github"></i> <a href="https://github.com/imranka641" target="_blank">github.com/imranka641</a></li>
+                        <li><i class="fas fa-location-dot"></i> Ethiopia 🇪🇹 (Available for Remote/Full-Stack Roles)</li>
+                        <li><i class="fas fa-graduation-cap"></i> B.Sc. in CS / Information Science Graduate</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Professional Summary -->
+            <div class="resume-sec">
+                <div class="resume-sec-title"><i class="fas fa-user"></i> Professional Profile</div>
+                <p class="resume-summary-text">
+                    Computer Science / Information Science graduate and full-stack software developer from Ethiopia. Experienced in designing, engineering, and deploying database-driven web applications, REST APIs, native Android mobile apps, and multi-tier organizational workflow systems. Strong background with modern tech stacks (React 19, Vite, Node.js, Express, PostgreSQL, Prisma) as well as classic architectures (PHP, MySQL, REST APIs) and Android engineering (Kotlin, Jetpack Compose). Passionate about data integrity, role-based access control (RBAC), payment/receipt verification pipelines, and bilingual solutions.
+                </p>
+            </div>
+
+            <!-- Education -->
+            <div class="resume-sec">
+                <div class="resume-sec-title"><i class="fas fa-graduation-cap"></i> Education</div>
+                <div style="display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 8px;">
+                    <div>
+                        <strong style="color: #0f172a; font-size: 0.92rem;">Bachelor of Science in Computer Science / Information Science</strong>
+                        <div style="font-size: 0.84rem; color: #475569;">Higher Education Institution • Ethiopia</div>
+                    </div>
+                    <span style="font-size: 0.84rem; font-weight: 700; color: #16a34a; background: #f0fdf4; padding: 3px 8px; border-radius: 4px; border: 1px solid #bbf7d0;">
+                        <i class="fas fa-circle-check"></i> Degree Completed (Graduate)
+                    </span>
+                </div>
+                <p style="font-size: 0.83rem; color: #64748b; margin-top: 6px; line-height: 1.45;">
+                    Relevant Focus: Relational Database Systems, Full-Stack Web Technologies, Mobile Application Architecture, Data Mining (Apriori, Naive Bayes), Information Retrieval (TF-IDF), Object-Oriented Software Engineering.
+                </p>
+            </div>
+
+            <!-- Technical Skills Matrix -->
+            <div class="resume-sec">
+                <div class="resume-sec-title"><i class="fas fa-code"></i> Technical Skills Matrix</div>
+                <div class="resume-skills-grid">
+                    <div class="resume-skill-row">
+                        <strong>Frontend:</strong> React.js, React 19, Vite, Tailwind CSS, JavaScript (ES6+), Bootstrap, React Router, Axios, React Hook Form, TanStack Query, Zustand, Redux Toolkit, Framer Motion, Responsive UI
+                    </div>
+                    <div class="resume-skill-row">
+                        <strong>Backend & APIs:</strong> Node.js, Express.js, PHP, RESTful APIs, JWT Authentication, Role-Based Access Control (RBAC), File Upload/Storage Systems, Middleware Pipelines
+                    </div>
+                    <div class="resume-skill-row">
+                        <strong>Databases & Modeling:</strong> PostgreSQL, MySQL, Prisma ORM, Database Normalization, Relational Schema Modeling, SQL Queries & Indexes, CRUD Operations, phpMyAdmin
+                    </div>
+                    <div class="resume-skill-row">
+                        <strong>Mobile Development:</strong> Native Android (Kotlin, Jetpack Compose), Android Studio, Gradle, Local Push Notifications, Background Tasks, Mobile UI/UX
+                    </div>
+                    <div class="resume-skill-row">
+                        <strong>Tools & Environments:</strong> Git & GitHub, VS Code, Postman, XAMPP, npm, Maven, WordPress, PowerShell, Linux & Windows Environments
+                    </div>
+                    <div class="resume-skill-row">
+                        <strong>Applied Capabilities:</strong> Payment & Receipt Verification Workflows, QR Code Integration, PDF Export Generation, Bilingual (Amharic/English) Interfaces, Islamic Tech Solutions
+                    </div>
+                </div>
+            </div>
+
+            <!-- Featured Projects -->
+            <div class="resume-sec">
+                <div class="resume-sec-title"><i class="fas fa-briefcase"></i> Featured Projects & Systems Development</div>
+
+                <!-- 1. Islamic Learning Platform -->
+                <div class="resume-project-item">
+                    <div class="resume-project-head">
+                        <span class="resume-project-name">1. Islamic Learning Platform</span>
+                        <span class="resume-project-tech">React.js • Node.js • PostgreSQL • Prisma • JWT</span>
+                    </div>
+                    <p class="resume-project-desc">
+                        Full-stack e-learning portal designed for students and administrators with structured course content and resource delivery.
+                    </p>
+                    <ul class="resume-project-bullets">
+                        <li>Engineered multi-role authentication & authorization (Admin/Student) with JWT and route guards.</li>
+                        <li>Implemented course enrollment workflows with payment receipt upload and admin review/verification states.</li>
+                        <li>Integrated downloadable PDF educational resources and bilingual interface elements.</li>
+                    </ul>
+                </div>
+
+                <!-- 2. Tax Clearance Certificate System -->
+                <div class="resume-project-item">
+                    <div class="resume-project-head">
+                        <span class="resume-project-name">2. Tax Clearance Certificate (TCC) System</span>
+                        <span class="resume-project-tech">React.js • Node.js • MySQL • REST API • QR Code</span>
+                    </div>
+                    <p class="resume-project-desc">
+                        Enterprise workflow automation prototype for taxpayer registration and digital verification certificate generation.
+                    </p>
+                    <ul class="resume-project-bullets">
+                        <li>Built taxpayer duplicate checking algorithms, admin validation queues, and status auditing.</li>
+                        <li>Automated generation of printable, tamper-evident PDF tax clearance certificates with dynamic QR code verification.</li>
+                        <li>Delivered complete English and Amharic bilingual UI with seamless localization.</li>
+                    </ul>
+                </div>
+
+                <!-- 3. University Clearance System -->
+                <div class="resume-project-item">
+                    <div class="resume-project-head">
+                        <span class="resume-project-name">3. University Clearance System</span>
+                        <span class="resume-project-tech">React.js • Node.js • MySQL • RBAC Multi-Dept</span>
+                    </div>
+                    <p class="resume-project-desc">
+                        Multi-department approval lifecycle system replacing manual clearance paperwork for graduating students.
+                    </p>
+                    <ul class="resume-project-bullets">
+                        <li>Designed departmental workflows for Library, Registrar, Finance, Dormitory, and Sports offices.</li>
+                        <li>Created student real-time progress tracker and super-admin monitoring dashboard with full audit logging.</li>
+                    </ul>
+                </div>
+
+                <!-- 4. Ethiopian Food Ordering System -->
+                <div class="resume-project-item">
+                    <div class="resume-project-head">
+                        <span class="resume-project-name">4. Ethiopian Food Ordering System</span>
+                        <span class="resume-project-tech">PHP • MySQL • JavaScript • Local Payments</span>
+                    </div>
+                    <p class="resume-project-desc">
+                        Full-stack restaurant ordering web application with customer ordering and back-office management.
+                    </p>
+                    <ul class="resume-project-bullets">
+                        <li>Created interactive customer catalog, shopping cart, and order placement workflow.</li>
+                        <li>Integrated local Ethiopian payment flow and receipt image upload verification for administrators.</li>
+                    </ul>
+                </div>
+
+                <!-- 5. Islamic Android Apps -->
+                <div class="resume-project-item">
+                    <div class="resume-project-head">
+                        <span class="resume-project-name">5. Islamic Daily Zikr & Android Apps</span>
+                        <span class="resume-project-tech">Kotlin • Jetpack Compose • Android Studio</span>
+                    </div>
+                    <p class="resume-project-desc">
+                        Native Android application featuring daily zikr recitations, interactive progress tracking, and reminders.
+                    </p>
+                    <ul class="resume-project-bullets">
+                        <li>Built with Jetpack Compose declarative UI, state management, and customized theme support.</li>
+                        <li>Implemented local scheduled reminders and background notifications for daily devotional goals.</li>
+                    </ul>
+                </div>
+
+                <!-- 6. Real Estate & Feasibility Systems -->
+                <div class="resume-project-item">
+                    <div class="resume-project-head">
+                        <span class="resume-project-name">6. Real Estate & Business Feasibility Analysis</span>
+                        <span class="resume-project-tech">Database Modeling • Financial Logic • SQL</span>
+                    </div>
+                    <p class="resume-project-desc">
+                        Data-driven software modules for real estate valuation, investment ROI projections, and relational asset management.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Key Strengths & Principles -->
+            <div class="resume-sec" style="margin-bottom: 0;">
+                <div class="resume-sec-title"><i class="fas fa-star"></i> Engineering Competencies</div>
+                <div style="font-size: 0.85rem; color: #334155; line-height: 1.55;">
+                    <strong>Full-Lifecycle Engineering:</strong> Concept to schema modeling, backend API construction, frontend UI implementation, and deployment.<br>
+                    <strong>Database Rigor:</strong> 3NF normalization, foreign key constraints, index optimization, and reliable migration design.<br>
+                    <strong>Workflows & Security:</strong> Multi-tier RBAC permissions, token-based authentication, audit trails, and payment verification pipelines.<br>
+                    <strong>Commitment:</strong> Dedication to clean, well-documented code, continuous professional growth, and realistic engineering standards.
                 </div>
             </div>
         </div>
+    </div>
+
+    <!-- Resume Preview Modal -->
+    <div class="resume-modal-overlay" id="resumeModalOverlay" role="dialog" aria-modal="true" aria-labelledby="resumeModalTitle">
+        <div class="resume-modal-container">
+            <div class="resume-modal-header">
+                <h3 id="resumeModalTitle"><i class="fas fa-file-pdf" style="color: var(--secondary);"></i> Imran Kedir — Resume Preview</h3>
+                <div class="resume-modal-actions">
+                    <button type="button" class="btn btn-sm btn-accent" id="modalPrintBtn" title="Open printer dialog to print or save as PDF">
+                        <i class="fas fa-print"></i> <span>Print / Save PDF</span>
+                    </button>
+                    <button type="button" class="btn btn-sm btn-outline" id="modalNewTabBtn" title="Open printable sheet in a new browser tab">
+                        <i class="fas fa-arrow-up-right-from-square"></i> <span>Open in Tab</span>
+                    </button>
+                    <button type="button" class="btn btn-sm btn-outline" id="modalDownloadHtmlBtn" title="Download clean standalone HTML resume">
+                        <i class="fas fa-download"></i> <span>Download HTML</span>
+                    </button>
+                    <button type="button" class="btn btn-sm btn-outline" id="modalCloseBtn" aria-label="Close modal">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="resume-modal-body" id="modalResumeContent">
+                <!-- Resume Paper content cloned here for preview -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer id="siteFooter">
+        <div class="container">
+            <a href="#home" class="brand-logo" style="justify-content: center; margin-bottom: 12px;">
+                <div class="logo-avatar" style="width: 32px; height: 32px; font-size: 0.95rem;">IK</div>
+                <div class="logo-text">Imran <span>Kedir</span></div>
+            </a>
+            <p style="color: var(--text-muted); font-size: 0.9rem; max-width: 580px; margin: 0 auto 16px;">
+                Full-Stack Web Developer | React & Node.js Developer | Android Developer | Database Application Developer
+            </p>
+            <div class="footer-socials">
+                <a href="https://github.com/imranka641" target="_blank" rel="noopener noreferrer" class="footer-social-btn" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                <a href="mailto:imranka641@gmail.com" class="footer-social-btn" aria-label="Email"><i class="fas fa-envelope"></i></a>
+            </div>
+            <p style="font-size: 0.82rem; color: var(--text-muted);">
+                &copy; 2026 Imran Kedir. Designed and built with modern web standards.
+            </p>
+        </div>
     </footer>
 
+    <!-- Interactive JavaScript -->
     <script>
-        // Mobile Menu Toggle
+        // --- 1. THEME SWITCHER (Dark/Light Mode) ---
+        const themeToggleBtn = document.getElementById('themeToggleBtn');
+        const themeIcon = document.getElementById('themeIcon');
+        const htmlElement = document.documentElement;
+
+        const savedTheme = localStorage.getItem('theme');
+        const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+        if (savedTheme === 'dark' || (!savedTheme && systemPrefersDark)) {
+            setTheme('dark');
+        } else {
+            setTheme('light');
+        }
+
+        function setTheme(theme) {
+            htmlElement.setAttribute('data-theme', theme);
+            localStorage.setItem('theme', theme);
+            if (theme === 'dark') {
+                themeIcon.className = 'fas fa-sun';
+                themeToggleBtn.setAttribute('aria-label', 'Switch to light mode');
+            } else {
+                themeIcon.className = 'fas fa-moon';
+                themeToggleBtn.setAttribute('aria-label', 'Switch to dark mode');
+            }
+        }
+
+        themeToggleBtn.addEventListener('click', () => {
+            const current = htmlElement.getAttribute('data-theme');
+            const next = current === 'dark' ? 'light' : 'dark';
+            setTheme(next);
+            displayToast('Theme Updated', `Switched to ${next} mode.`, 'success', 2200);
+        });
+
+        // --- 2. MOBILE MENU TOGGLE ---
         const mobileMenuBtn = document.getElementById('mobileMenuBtn');
         const mainNav = document.getElementById('mainNav');
-        
+
         mobileMenuBtn.addEventListener('click', () => {
-            mainNav.classList.toggle('active');
-            mobileMenuBtn.innerHTML = mainNav.classList.contains('active') 
-                ? '<i class="fas fa-times"></i>' 
-                : '<i class="fas fa-bars"></i>';
+            const isOpen = mainNav.classList.toggle('open');
+            mobileMenuBtn.innerHTML = isOpen ? '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
         });
-        
-        // Close mobile menu when clicking a link
+
         document.querySelectorAll('nav a').forEach(link => {
             link.addEventListener('click', () => {
-                mainNav.classList.remove('active');
+                mainNav.classList.remove('open');
                 mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
             });
         });
-        
-        // Form submission
-        document.getElementById('contactForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            // Get form values
-            const name = document.getElementById('name').value;
-            const email = document.getElementById('email').value;
-            const subject = document.getElementById('subject').value;
-            const message = document.getElementById('message').value;
-            
-            // In a real application, this would send the data to a server
-            // For this example, we'll just show an alert
-            alert(`Thank you ${name}! Your message has been received. I'll get back to you at ${email} as soon as possible.`);
-            
-            // Reset form
-            this.reset();
+
+        // --- 3. SCROLL SPY ---
+        const sections = document.querySelectorAll('section[id]');
+        const navLinks = document.querySelectorAll('nav ul li a');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            const scrollPos = window.pageYOffset + 180;
+
+            sections.forEach(sec => {
+                const top = sec.offsetTop;
+                const height = sec.offsetHeight;
+                if (scrollPos >= top && scrollPos < top + height) {
+                    current = sec.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
+                }
+            });
         });
-        
-        // Header scroll effect
-        window.addEventListener('scroll', function() {
-            const header = document.querySelector('header');
-            if (window.scrollY > 100) {
-                header.style.backgroundColor = 'rgba(255, 255, 255, 0.98)';
-                header.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.1)';
+
+        // --- 4. PROJECT FILTERING ---
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const projectCards = document.querySelectorAll('.project-card');
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+
+                const filterValue = btn.getAttribute('data-filter');
+
+                projectCards.forEach(card => {
+                    const cardCategory = card.getAttribute('data-category');
+                    if (filterValue === 'all' || cardCategory === filterValue) {
+                        card.style.display = 'flex';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // --- 5. TOAST NOTIFICATION SYSTEM ---
+        const toastWrapper = document.getElementById('toastWrapper');
+
+        function displayToast(title, message, type = 'success', duration = 4000) {
+            const toast = document.createElement('div');
+            toast.className = `toast-item toast-${type}`;
+            toast.setAttribute('role', 'alert');
+
+            const icon = type === 'success' ? 'fa-circle-check' : 'fa-circle-exclamation';
+
+            toast.innerHTML = `
+                <i class="fas ${icon}" style="font-size: 1.15rem; color: var(--${type === 'success' ? 'success' : 'error'}-color); margin-top: 2px;"></i>
+                <div style="flex-grow: 1;">
+                    <div style="font-weight: 700; font-size: 0.92rem; margin-bottom: 2px;">${title}</div>
+                    <div style="font-size: 0.84rem; color: var(--text-muted); line-height: 1.4;">${message}</div>
+                </div>
+            `;
+
+            toastWrapper.appendChild(toast);
+
+            requestAnimationFrame(() => {
+                toast.classList.add('show');
+            });
+
+            setTimeout(() => {
+                toast.classList.remove('show');
+                setTimeout(() => toast.remove(), 300);
+            }, duration);
+        }
+
+        // --- 6. COPY BIO / MARKDOWN SNIPPET ---
+        const copyBioBtn = document.getElementById('copyBioBtn');
+        const copyBtnText = document.getElementById('copyBtnText');
+        const bioCodeBlock = document.getElementById('bioCodeBlock');
+
+        copyBioBtn.addEventListener('click', async () => {
+            try {
+                await navigator.clipboard.writeText(bioCodeBlock.textContent);
+                copyBtnText.textContent = 'Copied!';
+                copyBioBtn.classList.remove('btn-outline');
+                copyBioBtn.classList.add('btn-accent');
+                displayToast('Copied to Clipboard', 'Profile markdown copied successfully.', 'success', 2500);
+
+                setTimeout(() => {
+                    copyBtnText.textContent = 'Copy Markdown';
+                    copyBioBtn.classList.add('btn-outline');
+                    copyBioBtn.classList.remove('btn-accent');
+                }, 3000);
+            } catch (err) {
+                displayToast('Copy Failed', 'Please select and copy the text manually.', 'error', 3000);
+            }
+        });
+
+        // --- 7. CONTACT FORM VALIDATION & SUBMISSION ---
+        const contactForm = document.getElementById('contactForm');
+        const contactSubmitBtn = document.getElementById('contactSubmitBtn');
+        const nameInput = document.getElementById('name');
+        const emailInput = document.getElementById('email');
+        const subjectInput = document.getElementById('subject');
+        const messageInput = document.getElementById('message');
+        const charTracker = document.getElementById('charTracker');
+
+        messageInput.addEventListener('input', () => {
+            charTracker.textContent = `${messageInput.value.length} / 1000`;
+        });
+
+        function validateField(input, group, errorEl, minLen, customRegex = null, errMsg = null) {
+            const val = input.value.trim();
+            let isValid = false;
+
+            if (!val) {
+                isValid = false;
+                errorEl.querySelector('span').textContent = 'This field is required.';
+            } else if (customRegex && !customRegex.test(val)) {
+                isValid = false;
+                errorEl.querySelector('span').textContent = errMsg || 'Invalid format.';
+            } else if (val.length < minLen) {
+                isValid = false;
+                errorEl.querySelector('span').textContent = `Minimum ${minLen} characters required.`;
             } else {
-                header.style.backgroundColor = 'rgba(255, 255, 255, 0.95)';
-                header.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.1)';
+                isValid = true;
+            }
+
+            if (isValid) {
+                group.classList.remove('is-invalid');
+                group.classList.add('is-valid');
+            } else {
+                group.classList.remove('is-valid');
+                group.classList.add('is-invalid');
+            }
+            return isValid;
+        }
+
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        function runValidation() {
+            const v1 = validateField(nameInput, document.getElementById('group-name'), document.getElementById('nameError'), 2);
+            const v2 = validateField(emailInput, document.getElementById('group-email'), document.getElementById('emailError'), 5, emailRegex, 'Please enter a valid email address.');
+            const v3 = validateField(subjectInput, document.getElementById('group-subject'), document.getElementById('subjectError'), 3);
+            const v4 = validateField(messageInput, document.getElementById('group-message'), document.getElementById('messageError'), 10);
+            return v1 && v2 && v3 && v4;
+        }
+
+        [nameInput, emailInput, subjectInput, messageInput].forEach(inp => {
+            inp.addEventListener('blur', () => {
+                const grp = inp.closest('.form-group');
+                const err = grp.querySelector('.err-hint');
+                if (inp === nameInput) validateField(nameInput, grp, err, 2);
+                if (inp === emailInput) validateField(emailInput, grp, err, 5, emailRegex, 'Please enter a valid email.');
+                if (inp === subjectInput) validateField(subjectInput, grp, err, 3);
+                if (inp === messageInput) validateField(messageInput, grp, err, 10);
+            });
+        });
+
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            if (!runValidation()) {
+                const firstErr = document.querySelector('.form-group.is-invalid input, .form-group.is-invalid textarea');
+                if (firstErr) firstErr.focus();
+                displayToast('Form Incomplete', 'Please review the highlighted fields above.', 'error', 3500);
+                return;
+            }
+
+            const sender = nameInput.value.trim();
+            const senderEmail = emailInput.value.trim();
+
+            contactSubmitBtn.classList.add('loading');
+            contactSubmitBtn.disabled = true;
+
+            setTimeout(() => {
+                contactSubmitBtn.classList.remove('loading');
+                contactSubmitBtn.disabled = false;
+
+                displayToast(
+                    'Message Transmitted!',
+                    `Thank you, ${sender}! Your message has been sent. I will reply to ${senderEmail} soon.`,
+                    'success',
+                    5000
+                );
+
+                contactForm.reset();
+                charTracker.textContent = '0 / 1000';
+                document.querySelectorAll('.form-group').forEach(g => g.classList.remove('is-valid', 'is-invalid'));
+            }, 750);
+        });
+
+        // --- 8. PRINTABLE RESUME & MODAL CONTROLLER ---
+        const resumeModalOverlay = document.getElementById('resumeModalOverlay');
+        const modalResumeContent = document.getElementById('modalResumeContent');
+        const printableResumeContent = document.getElementById('printableResumeContent');
+        const modalCloseBtn = document.getElementById('modalCloseBtn');
+        const modalPrintBtn = document.getElementById('modalPrintBtn');
+        const modalNewTabBtn = document.getElementById('modalNewTabBtn');
+        const modalDownloadHtmlBtn = document.getElementById('modalDownloadHtmlBtn');
+        const navResumeBtn = document.getElementById('navResumeBtn');
+        const heroResumeBtn = document.getElementById('heroResumeBtn');
+        const aboutResumeBtn = document.getElementById('aboutResumeBtn');
+        const bioPrintResumeBtn = document.getElementById('bioPrintResumeBtn');
+
+        function getStandaloneResumeHTML(autoPrint = false) {
+            const paper = document.getElementById('printableResumeContent');
+            if (!paper) return '';
+            
+            return `<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Imran Kedir - Resume</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        @page { size: A4 portrait; margin: 10mm 14mm; }
+        html, body {
+            background: #ffffff;
+            color: #1e293b;
+            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-size: 13.5px;
+            line-height: 1.48;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+            padding: 24px 20px;
+        }
+        .resume-paper {
+            max-width: 820px;
+            margin: 0 auto;
+            background: #ffffff;
+        }
+        .resume-header {
+            border-bottom: 2px solid #0f172a;
+            padding-bottom: 14px;
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        .resume-name {
+            font-size: 2rem;
+            font-weight: 800;
+            color: #0f172a;
+            font-family: 'Space Grotesk', sans-serif;
+            line-height: 1.1;
+            margin-bottom: 4px;
+        }
+        .resume-title {
+            font-size: 0.96rem;
+            font-weight: 700;
+            color: #2563eb;
+        }
+        .resume-contact-list {
+            list-style: none;
+            font-size: 0.82rem;
+            color: #475569;
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+            text-align: right;
+        }
+        .resume-contact-list a { color: #2563eb; text-decoration: none; }
+        .resume-contact-list li i { margin-right: 5px; color: #0d9488; }
+        .resume-sec { margin-bottom: 15px; page-break-inside: avoid; break-inside: avoid; }
+        .resume-sec-title {
+            font-size: 0.88rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: #0f172a;
+            border-bottom: 1.5px solid #cbd5e1;
+            padding-bottom: 3px;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            font-family: 'Space Grotesk', sans-serif;
+        }
+        .resume-sec-title i { color: #2563eb; font-size: 0.85rem; }
+        .resume-summary-text { font-size: 0.85rem; color: #334155; line-height: 1.5; }
+        .resume-skills-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 6px 16px; font-size: 0.83rem; }
+        .resume-skill-row strong { color: #0f172a; }
+        .resume-project-item { margin-bottom: 11px; page-break-inside: avoid; break-inside: avoid; }
+        .resume-project-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 2px; }
+        .resume-project-name { font-size: 0.9rem; font-weight: 700; color: #0f172a; }
+        .resume-project-tech { font-size: 0.74rem; font-weight: 600; color: #0d9488; background: #f0fdfa; border: 1px solid #ccfbf1; padding: 2px 6px; border-radius: 4px; }
+        .resume-project-desc { font-size: 0.82rem; color: #334155; margin-bottom: 3px; line-height: 1.4; }
+        .resume-project-bullets { list-style: square; padding-left: 16px; font-size: 0.8rem; color: #475569; margin-bottom: 3px; }
+        .resume-project-bullets li { margin-bottom: 2px; }
+        @media print {
+            body { padding: 0 !important; }
+        }
+    </style>
+</head>
+<body>
+    ${paper.outerHTML}
+    ${autoPrint ? `<script>window.addEventListener('load', () => { setTimeout(() => window.print(), 350); });<\/script>` : ''}
+</body>
+</html>`;
+        }
+
+        function openResumeModal() {
+            if (printableResumeContent && modalResumeContent) {
+                modalResumeContent.innerHTML = printableResumeContent.outerHTML;
+            }
+            resumeModalOverlay.classList.add('open');
+            document.body.style.overflow = 'hidden';
+            if (modalPrintBtn) modalPrintBtn.focus();
+        }
+
+        function closeResumeModal() {
+            resumeModalOverlay.classList.remove('open');
+            document.body.style.overflow = '';
+        }
+
+        function triggerPrintResume() {
+            displayToast(
+                'Opening Print Dialog',
+                'Select "Save as PDF" in the destination dropdown to export your clean PDF document.',
+                'success',
+                4500
+            );
+
+            // 1. Create dedicated isolated print iframe
+            let printFrame = document.getElementById('dynamicResumePrintFrame');
+            if (printFrame) {
+                printFrame.remove();
+            }
+
+            try {
+                printFrame = document.createElement('iframe');
+                printFrame.id = 'dynamicResumePrintFrame';
+                printFrame.style.position = 'fixed';
+                printFrame.style.right = '0';
+                printFrame.style.bottom = '0';
+                printFrame.style.width = '0';
+                printFrame.style.height = '0';
+                printFrame.style.border = '0';
+                printFrame.style.visibility = 'hidden';
+                document.body.appendChild(printFrame);
+
+                const frameDoc = printFrame.contentDocument || printFrame.contentWindow.document;
+                frameDoc.open();
+                frameDoc.write(getStandaloneResumeHTML(false));
+                frameDoc.close();
+
+                setTimeout(() => {
+                    try {
+                        printFrame.contentWindow.focus();
+                        printFrame.contentWindow.print();
+                    } catch (err) {
+                        console.warn('Iframe print trapped, falling back to window.print():', err);
+                        window.print();
+                    }
+                }, 400);
+            } catch (e) {
+                console.warn('Print frame error, using window.print():', e);
+                window.print();
+            }
+        }
+
+        function openResumeInNewTab() {
+            const htmlContent = getStandaloneResumeHTML(true);
+            const blob = new Blob([htmlContent], { type: 'text/html;charset=utf-8' });
+            const blobUrl = URL.createObjectURL(blob);
+            const newWin = window.open(blobUrl, '_blank');
+            if (newWin) {
+                displayToast('Opened in New Tab', 'Resume opened in a standalone tab with print prompt ready.', 'success', 3500);
+            } else {
+                displayToast('Popup Blocked', 'Please allow popups to open the standalone resume tab.', 'error', 4000);
+            }
+        }
+
+        function downloadResumeHtml() {
+            const htmlContent = getStandaloneResumeHTML(false);
+            const blob = new Blob([htmlContent], { type: 'text/html;charset=utf-8' });
+            const blobUrl = URL.createObjectURL(blob);
+            const downloadLink = document.createElement('a');
+            downloadLink.href = blobUrl;
+            downloadLink.download = 'Imran_Kedir_Resume.html';
+            document.body.appendChild(downloadLink);
+            downloadLink.click();
+            document.body.removeChild(downloadLink);
+            URL.revokeObjectURL(blobUrl);
+
+            displayToast('Download Started', 'Imran_Kedir_Resume.html downloaded successfully.', 'success', 3500);
+        }
+
+        if (navResumeBtn) navResumeBtn.addEventListener('click', openResumeModal);
+        if (heroResumeBtn) heroResumeBtn.addEventListener('click', openResumeModal);
+        if (aboutResumeBtn) aboutResumeBtn.addEventListener('click', openResumeModal);
+        if (bioPrintResumeBtn) bioPrintResumeBtn.addEventListener('click', openResumeModal);
+        if (modalCloseBtn) modalCloseBtn.addEventListener('click', closeResumeModal);
+        if (modalPrintBtn) modalPrintBtn.addEventListener('click', triggerPrintResume);
+        if (modalNewTabBtn) modalNewTabBtn.addEventListener('click', openResumeInNewTab);
+        if (modalDownloadHtmlBtn) modalDownloadHtmlBtn.addEventListener('click', downloadResumeHtml);
+
+        // Close on clicking backdrop
+        resumeModalOverlay.addEventListener('click', (e) => {
+            if (e.target === resumeModalOverlay) {
+                closeResumeModal();
+            }
+        });
+
+        // Close on Escape key press
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && resumeModalOverlay.classList.contains('open')) {
+                closeResumeModal();
             }
         });
     </script>
 </body>
-
 </html>

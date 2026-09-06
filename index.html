@@ -3222,6 +3222,18 @@
                 closeResumeModal();
             }
         });
+        
+
+  (function() {
+    // Load the chatbot widget
+    const script = document.createElement('script');
+    script.src = 'http://localhost:5174/widget.js';
+    script.dataset.botId = 'bot_2784cdc20eae0160';
+    script.async = true;
+    document.head.appendChild(script);
+    
+    console.log('🤖 AI Chatbot loaded successfully!');
+  })();
     </script>
 </body>
 </html>
